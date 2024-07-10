@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SocialiteController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +20,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('my-profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('my-profile');
+Route::get('change-password',[\App\Http\Controllers\ProfileController::class,'profilePassword'])->name('profilePassword');
+Route::post('change-password',[\App\Http\Controllers\ProfileController::class,'changePassword'])->name('changePassword');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
