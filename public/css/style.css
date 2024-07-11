@@ -739,6 +739,10 @@ ul.footer-links {
     margin: 0 25px 0 0;
     z-index: 999;
 }
+.alert-danger
+{
+    font-size: 16px !important;
+}
 
 #backtotop a {
     text-decoration: none;
@@ -1347,6 +1351,23 @@ button.widget-button {
     width: 20px;
     position: relative;
     display: inline-block;
+}
+.user-menu ul li button {
+    background: none;
+    border: none;
+    padding: 5px 15px;
+    line-height: 22px;
+    display: inline-block;
+    color: #696969;
+    transition: 0.2s;
+}
+
+.user-menu ul li button:hover {
+    color: #274abb;
+}
+.user-menu ul li button i {
+    padding-right: 10px
+
 }
 
 .user-menu.active ul {

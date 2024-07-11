@@ -46,8 +46,11 @@
                                 <p class="form-row form-row-wide">
                                     <label for="email2">Email:
                                         <i class="im im-icon-Male"></i>
-                                        <input type="email" class="input-text" name="email" id="email2" value="" />
+                                        <input type="email" class="input-text" name="email" id="email2" value="{{ old('email') }}" />
                                     </label>
+                                    @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </p>
 
                                 <p class="form-row form-row-wide">
@@ -55,6 +58,9 @@
                                         <i class="im im-icon-Lock-2 "></i>
                                         <input class="input-text" type="password" name="password" id="password"/>
                                     </label>
+                                    @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </p>
 
                                 <p class="form-row">
@@ -73,22 +79,26 @@
 
                         <!-- Register -->
                         <div class="tab-content" id="tab2" style="display: none;">
-
                             <form method="post" class="register" action="{{route('register')}}">
                                 @csrf
-
                                 <p class="form-row form-row-wide">
                                     <label for="username2">Username:
                                         <i class="im im-icon-Male mb-3"></i>
-                                        <input type="text" class="input-text" name="name" id="username2" value="" />
+                                        <input type="text" class="input-text" name="name" id="username2" value="{{ old('name') }}" />
                                     </label>
+                                    @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </p>
 
                                 <p class="form-row form-row-wide">
                                     <label for="email2">Email Address:
                                         <i class="im im-icon-Mail mb-3"></i>
-                                        <input type="text" class="input-text" name="email" id="email2" value="" />
+                                        <input type="text" class="input-text" name="email" id="email2" value="{{ old('email') }}" />
                                     </label>
+                                    @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </p>
 
                                 <p class="form-row form-row-wide">
@@ -96,6 +106,9 @@
                                         <i class="im im-icon-Lock-2 mb-3"></i>
                                         <input class="input-text" type="password" name="password" id="password1"/>
                                     </label>
+                                    @error('password')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </p>
 
                                 <p class="form-row form-row-wide">
@@ -103,6 +116,9 @@
                                         <i class="im im-icon-Lock-2 mb-3"></i>
                                         <input class="input-text" type="password" name="password_confirmation" id="password2"/>
                                     </label>
+                                    @error('password_confirmation')
+                                    <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </p>
 
                                 <p class="form-row">
@@ -114,11 +130,7 @@
 
                     </div>
                 </div>
-
-
-
             </div>
         </div>
-
     </div>
 @endsection
