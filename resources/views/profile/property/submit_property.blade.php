@@ -22,7 +22,7 @@
 
                     <h3>Basic Information</h3>
                     <div class="submit-section">
-                        <form action="{{ route('property.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('property.store') }}" method="POST" enctype="multipart/form-data" >
                             @csrf
                             <!-- Title -->
                             <div class="form">
@@ -113,18 +113,11 @@
                                 </div>
                             </div>
 
-
+                        <!--Gallery -->
                             <h3>Gallery</h3>
                             <div class="submit-section">
-                                <!-- Dropzone.js integration -->
-                                <form  class="dropzone" id="my-dropzone">
-                                    @csrf
-                                    <div class="fallback">
-                                        <input name="file" type="file" multiple />
-                                    </div>
-                                </form>
+                                    <input type="file" class="dropzone" name="images[]" multiple>
                             </div>
-
 
                             <!-- Location -->
                             <h3>Location</h3>
@@ -297,8 +290,8 @@
 
                             <!-- Submit Button -->
                             <div class="divider"></div>
-                            <button type="submit" class="button preview margin-top-5">Submit Property <i
-                                    class="fa fa-arrow-circle-right"></i></button>
+                            <button type="submit" class="button preview margin-top-5 submit-all">Submit Property <i class="fa fa-arrow-circle-right"></i></button>
+
 
                         </form>
                     </div>
@@ -306,28 +299,12 @@
             </div>
         </div>
     </div>
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.js"></script>
-
+    <script type="text/javascript" src="/scripts/dropzone.js"></script>
     <script>
-        // Customize Dropzone.js options as needed
-        Dropzone.options.myDropzone = {
-            paramName: "file", // The name that will be used to transfer the file
-            maxFilesize: 2, // MB
-            acceptedFiles: ".jpeg,.jpg,.png,.gif",
-            addRemoveLinks: true,
-            timeout: 5000,
-            success: function(file, response) {
-                console.log(response); // Handle server response here after successful upload
-            },
-            error: function(file, response) {
-                console.error(response); // Handle errors here
-            }
-        };
+        $(".dropzone").dropzone({
+            dictDefaultMessage: "<i class='sl sl-icon-plus'></i> Click here or drop files to upload",
+        });
     </script>
-
-
 
 
 

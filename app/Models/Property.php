@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,5 +33,13 @@ class Property extends Model
     public function images()
     {
         return $this->hasMany(PropertyImage::class, 'property_id', 'id');
+    }
+    public function timeFormat(Property $property)
+    {
+        $createdAt = $property->created_at;
+        $createdAtPlus10 = $createdAt->copy()->addDays(10);
+        $formattedDate = $createdAtPlus10->format('F d, Y');
+
+        return $formattedDate;
     }
 }

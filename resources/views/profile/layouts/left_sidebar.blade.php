@@ -11,7 +11,7 @@
 
             <ul class="my-account-nav">
                 <li class="sub-nav-title">Manage Listings</li>
-                <li><a href="my-properties.html"><i class="sl sl-icon-docs"></i> My Properties</a></li>
+                <li><a href="{{route('property.show')}}"><i class="sl sl-icon-docs"></i> My Properties</a></li>
                 <li><a href="{{route('profile.property')}}"><i class="sl sl-icon-action-redo"></i> Submit New Property</a></li>
             </ul>
 

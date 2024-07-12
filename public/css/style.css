@@ -739,11 +739,17 @@ ul.footer-links {
     margin: 0 25px 0 0;
     z-index: 999;
 }
+input {
+    font-size: 14px !important;
+}
+
 .alert-danger
 {
     font-size: 16px !important;
 }
-
+textarea {
+    font-size: 15px !important;
+}
 #backtotop a {
     text-decoration: none;
     border: 0 none;

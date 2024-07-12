@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\SocialiteController;
 use Illuminate\Support\Facades\Auth;
@@ -22,13 +23,14 @@ Route::get('/', function () {
 });
 
 
-Route::get('my-profile',[\App\Http\Controllers\ProfileController::class,'index'])->name('my-profile');
-Route::get('change-password',[\App\Http\Controllers\ProfileController::class,'profilePassword'])->name('profilePassword');
-Route::post('change-password',[\App\Http\Controllers\ProfileController::class,'changePassword'])->name('changePassword');
-Route::post('profile/update',[\App\Http\Controllers\ProfileController::class,'profileUpdate'])->name('profile.update');
-Route::get('my-profile/property',[\App\Http\Controllers\PropertyController::class,'index'])->name('profile.property');
-Route::post('my-profile/property',[\App\Http\Controllers\PropertyController::class,'store'])->name('property.store');
-Route::post('/property/image/upload', [PropertyController::class, 'uploadImage'])->name('property.image.upload');
+Route::get('my-profile',[ProfileController::class,'index'])->name('my-profile');
+Route::get('change-password',[ProfileController::class,'profilePassword'])->name('profilePassword');
+Route::post('change-password',[ProfileController::class,'changePassword'])->name('changePassword');
+Route::post('profile/update',[ProfileController::class,'profileUpdate'])->name('profile.update');
+Route::get('my-profile/property',[PropertyController::class,'index'])->name('profile.property')->middleware('auth');
+Route::post('my-profile/property',[PropertyController::class,'store'])->name('property.store');
+
+Route::get('my-profile/show',[PropertyController::class,'show'])->name('property.show');
 
 Auth::routes();
 
