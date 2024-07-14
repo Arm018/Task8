@@ -47,9 +47,20 @@ class PropertyController extends Controller
         public function show()
         {
             $properties = Auth::user()->properties;
-
             return view('profile.property.my_properties',compact('properties'));
 
+        }
+       public function edit($id)
+       {
+
+           $property = Property::findOrFail($id);
+           return view('profile.property.edit_property',compact('property'));
+       }
+        public function destroy($id)
+        {
+            $property = Property::findOrFail($id);
+            $property->delete();
+            return redirect()->route('profile.property')->with('success', 'Property deleted successfully');
         }
 
 

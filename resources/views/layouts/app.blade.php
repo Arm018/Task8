@@ -228,7 +228,7 @@
                                             @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->userInfo && \Illuminate\Support\Facades\Auth::user()->userInfo->image)
                                                 <img
                                                     src="{{ \Illuminate\Support\Facades\Storage::url(\Illuminate\Support\Facades\Auth::user()->userInfo->image) }}"
-                                                    alt="">
+                                                    style="height: 35px !important;">
                                             @else
                                                 <img src="/images/agent-01.jpg">
                                             @endif
@@ -252,7 +252,7 @@
                                 </ul>
                             </div>
                         @endif
-                        <a href="submit-property.html" class="button border">Submit Property</a>
+                        <a href="{{route('profile.property')}}" class="button border">Submit Property</a>
                     </div>
                     <!-- Header Widget / End -->
                 </div>
