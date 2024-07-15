@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('content')
-    <div class="parallax" data-background="images/home-parallax.jpg" data-color="#36383e" data-color-opacity="0.45" data-img-width="2500" data-img-height="1600">
+    <!-- Banner
+    ================================================== -->
+    <div class="parallax" data-background="/images/home-parallax.jpg" data-color="#36383e" data-color-opacity="0.45" data-img-width="2500" data-img-height="1600">
         <div class="parallax-content">
 
             <div class="container">
@@ -224,9 +226,9 @@
                                 </div>
 
                                 <div class="listing-carousel">
-                                    <div><img src="/images/listing-01.jpg" alt=""></div>
-                                    <div><img src="/images/listing-01b.jpg" alt=""></div>
-                                    <div><img src="/images/listing-01c.jpg" alt=""></div>
+                                    <div><img src="images/listing-01.jpg" alt=""></div>
+                                    <div><img src="images/listing-01b.jpg" alt=""></div>
+                                    <div><img src="images/listing-01c.jpg" alt=""></div>
                                 </div>
 
                             </a>
@@ -275,7 +277,7 @@
                                     <span class="compare-button with-tip" data-tip-content="Add to Compare"></span>
                                 </div>
 
-                                <img src=/"images/listing-02.jpg" alt="">
+                                <img src="images/listing-02.jpg" alt="">
 
                             </a>
 
@@ -324,7 +326,7 @@
                                     <span class="compare-button with-tip" data-tip-content="Add to Compare"></span>
                                 </div>
 
-                                <img src="/images/listing-03.jpg" alt="">
+                                <img src="images/listing-03.jpg" alt="">
 
                             </a>
 
@@ -426,7 +428,7 @@
                                     <span class="compare-button with-tip" data-tip-content="Add to Compare"></span>
                                 </div>
 
-                                <img src="/images/listing-05.jpg" alt="">
+                                <img src="images/listing-05.jpg" alt="">
                             </a>
 
                             <div class="listing-content">
@@ -711,5 +713,22 @@
         </div>
     </a>
     <!-- Flip banner / End -->
+
+
+
+    <script>
+        function initAutocomplete() {
+            var input = document.getElementById('autocomplete-input');
+            var autocomplete = new google.maps.places.Autocomplete(input);
+
+            autocomplete.addListener('place_changed', function() {
+                var place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    window.alert("No details available for input: '" + place.name + "'");
+                    return;
+                }
+            });
+        }
+    </script>
     @include('layouts.footer')
 @endsection

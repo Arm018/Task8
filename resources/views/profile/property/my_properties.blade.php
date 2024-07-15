@@ -32,6 +32,11 @@
 
 
             <div class="col-md-8">
+                @if(session()->has('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <table class="manage-table responsive-table">
 
                     <tr>
@@ -53,7 +58,16 @@
                         <td class="action">
                             <a href="{{route('property.edit', $property->id)}}"><i class="fa fa-pencil"></i> Edit</a>
                             <a href="#"><i class="fa  fa-eye-slash"></i> Hide</a>
-                            <a href="#" class="delete"><i class="fa fa-remove"></i> Delete</a>
+                            <form action="{{route('property.destroy', $property->id)}}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="delete" onclick="return confirmDelete()" style="background:none;padding:0;border:none; cursor:pointer;font-size: 15px">
+                                    <i class="fa fa-remove" style="font-size: 15px"></i>
+
+                                    Delete
+                                </button>
+
+                            </form>
                         </td>
                     </tr>
                     @endforeach
@@ -65,5 +79,10 @@
 
         </div>
     </div>
-
+    @include('layouts.footer')
+    <script>
+        function confirmDelete() {
+            return confirm('Do you really want to delete?');
+        }
+    </script>
 @endsection

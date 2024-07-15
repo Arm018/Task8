@@ -117,7 +117,11 @@
                             <h3>Gallery</h3>
                             <div class="submit-section">
                                     <input type="file" class="dropzone" name="images[]" multiple>
+                                @error('images')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
+
 
                             <!-- Location -->
                             <h3>Location</h3>

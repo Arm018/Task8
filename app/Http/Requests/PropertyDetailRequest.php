@@ -19,7 +19,7 @@ class PropertyDetailRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             'description' => 'nullable|string',
@@ -37,5 +37,18 @@ class PropertyDetailRequest extends FormRequest
             'contact_email' => 'nullable|email|max:255',
             'contact_phone' => 'nullable|string|max:20',
         ];
+    }
+
+    public function validated($key = null, $default = null)
+    {
+        $validated = parent::validated();
+        $checkboxFields = ['air_conditioning', 'swimming_pool', 'central_heating', 'laundry_room', 'gym', 'alarm', 'window_covering'];
+        foreach ($checkboxFields as $field) {
+            if (!isset($validated[$field])) {
+                $validated[$field] = '0';
+            }
+        }
+
+        return $validated;
     }
 }

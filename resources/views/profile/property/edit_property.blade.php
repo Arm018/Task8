@@ -22,7 +22,7 @@
 
                     <h3>Basic Information</h3>
                     <div class="submit-section">
-                        <form action="{{ route('property.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('property.update', $property->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <!-- Title -->
@@ -105,6 +105,9 @@
                             <h3>Gallery</h3>
                             <div class="submit-section">
                                 <input type="file" class="dropzone" name="images[]" multiple>
+                                @error('images')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Location -->
@@ -143,11 +146,12 @@
                             </div>
 
                             <!-- Detailed Information -->
+                            @foreach($property->details as $detail)
                             <h3>Detailed Information</h3>
                             <div class="submit-section">
                                 <div class="form">
                                     <h5>Description</h5>
-                                    <textarea class="WYSIWYG" name="description" cols="40" rows="3" id="summary" spellcheck="true">{{ old('description', $property->description) }}</textarea>
+                                    <textarea class="WYSIWYG" name="description" cols="40" rows="3" id="summary" spellcheck="true">{{ old('description', $detail->description) }}</textarea>
                                     @error('description')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                     @enderror
@@ -157,11 +161,11 @@
                                         <h5>Building Age</h5>
                                         <select class="chosen-select-no-single" name="building_age">
                                             <option value="">Select Building Age</option>
-                                            <option value="0 - 1 Years" {{ old('building_age', $property->building_age) == '0 - 1 Years' ? 'selected' : '' }}>0 - 1 Years</option>
-                                            <option value="0 - 5 Years" {{ old('building_age', $property->building_age) == '0 - 5 Years' ? 'selected' : '' }}>0 - 5 Years</option>
-                                            <option value="0 - 10 Years" {{ old('building_age', $property->building_age) == '0 - 10 Years' ? 'selected' : '' }}>0 - 10 Years</option>
-                                            <option value="0 - 20 Years" {{ old('building_age', $property->building_age) == '0 - 20 Years' ? 'selected' : '' }}>0 - 20 Years</option>
-                                            <option value="20+ Years" {{ old('building_age', $property->building_age) == '20+ Years' ? 'selected' : '' }}>20+ Years</option>
+                                            <option value="0 - 1 Years" {{ old('building_age', $detail->building_age) == '0 - 1 Years' ? 'selected' : '' }}>0 - 1 Years</option>
+                                            <option value="0 - 5 Years" {{ old('building_age', $detail->building_age) == '0 - 5 Years' ? 'selected' : '' }}>0 - 5 Years</option>
+                                            <option value="0 - 10 Years" {{ old('building_age', $detail->building_age) == '0 - 10 Years' ? 'selected' : '' }}>0 - 10 Years</option>
+                                            <option value="0 - 20 Years" {{ old('building_age', $detail->building_age) == '0 - 20 Years' ? 'selected' : '' }}>0 - 20 Years</option>
+                                            <option value="20+ Years" {{ old('building_age', $detail->building_age) == '20+ Years' ? 'selected' : '' }}>20+ Years</option>
                                         </select>
                                         @error('building_age')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -171,12 +175,12 @@
                                         <h5>Bedrooms</h5>
                                         <select class="chosen-select-no-single" name="bedrooms">
                                             <option value="">Select Number of Bedrooms</option>
-                                            <option value="1" {{ old('bedrooms', $property->bedrooms) == '1' ? 'selected' : '' }}>1</option>
-                                            <option value="2" {{ old('bedrooms', $property->bedrooms) == '2' ? 'selected' : '' }}>2</option>
-                                            <option value="3" {{ old('bedrooms', $property->bedrooms) == '3' ? 'selected' : '' }}>3</option>
-                                            <option value="4" {{ old('bedrooms', $property->bedrooms) == '4' ? 'selected' : '' }}>4</option>
-                                            <option value="5" {{ old('bedrooms', $property->bedrooms) == '5' ? 'selected' : '' }}>5</option>
-                                            <option value="More than 5" {{ old('bedrooms', $property->bedrooms) == 'More than 5' ? 'selected' : '' }}>More than 5</option>
+                                            <option value="1" {{ old('bedrooms', $detail->bedrooms) == '1' ? 'selected' : '' }}>1</option>
+                                            <option value="2" {{ old('bedrooms', $detail->bedrooms) == '2' ? 'selected' : '' }}>2</option>
+                                            <option value="3" {{ old('bedrooms', $detail->bedrooms) == '3' ? 'selected' : '' }}>3</option>
+                                            <option value="4" {{ old('bedrooms', $detail->bedrooms) == '4' ? 'selected' : '' }}>4</option>
+                                            <option value="5" {{ old('bedrooms', $detail->bedrooms) == '5' ? 'selected' : '' }}>5</option>
+                                            <option value="More than 5" {{ old('bedrooms', $detail->bedrooms) == 'More than 5' ? 'selected' : '' }}>More than 5</option>
                                         </select>
                                         @error('bedrooms')
                                         <div class="alert alert-danger">{{ $message }}</div>
@@ -186,48 +190,13 @@
                                         <h5>Bathrooms</h5>
                                         <select class="chosen-select-no-single" name="bathrooms">
                                             <option value="">Select Number of Bathrooms</option>
-                                            <option value="1" {{ old('bathrooms', $property->bathrooms) == '1' ? 'selected' : '' }}>1</option>
-                                            <option value="2" {{ old('bathrooms', $property->bathrooms) == '2' ? 'selected' : '' }}>2</option>
-                                            <option value="3" {{ old('bathrooms', $property->bathrooms) == '3' ? 'selected' : '' }}>3</option>
-                                            <option value="4" {{ old('bathrooms', $property->bathrooms) == '4' ? 'selected' : '' }}>4</option>
-                                            <option value="More than 4" {{ old('bathrooms', $property->bathrooms) == 'More than 4' ? 'selected' : '' }}>More than 4</option>
+                                            <option value="1" {{ old('bathrooms', $detail->bathrooms) == '1' ? 'selected' : '' }}>1</option>
+                                            <option value="2" {{ old('bathrooms', $detail->bathrooms) == '2' ? 'selected' : '' }}>2</option>
+                                            <option value="3" {{ old('bathrooms', $detail->bathrooms) == '3' ? 'selected' : '' }}>3</option>
+                                            <option value="4" {{ old('bathrooms', $detail->bathrooms) == '4' ? 'selected' : '' }}>4</option>
+                                            <option value="5" {{ old('bathrooms', $detail->bathrooms) == '5' ? 'selected' : '' }}>5</option>
                                         </select>
                                         @error('bathrooms')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row with-forms">
-                                    <div class="col-md-4">
-                                        <h5>Swimming Pool</h5>
-                                        <select class="chosen-select-no-single" name="swimming_pool">
-                                            <option value="">Does it have a swimming pool?</option>
-                                            <option value="Yes" {{ old('swimming_pool', $property->swimming_pool) == 'Yes' ? 'selected' : '' }}>Yes</option>
-                                            <option value="No" {{ old('swimming_pool', $property->swimming_pool) == 'No' ? 'selected' : '' }}>No</option>
-                                        </select>
-                                        @error('swimming_pool')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h5>Parking</h5>
-                                        <select class="chosen-select-no-single" name="parking">
-                                            <option value="">Does it have parking?</option>
-                                            <option value="Yes" {{ old('parking', $property->parking) == 'Yes' ? 'selected' : '' }}>Yes</option>
-                                            <option value="No" {{ old('parking', $property->parking) == 'No' ? 'selected' : '' }}>No</option>
-                                        </select>
-                                        @error('parking')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h5>Air Conditioning</h5>
-                                        <select class="chosen-select-no-single" name="air_conditioning">
-                                            <option value="">Does it have air conditioning?</option>
-                                            <option value="Yes" {{ old('air_conditioning', $property->air_conditioning) == 'Yes' ? 'selected' : '' }}>Yes</option>
-                                            <option value="No" {{ old('air_conditioning', $property->air_conditioning) == 'No' ? 'selected' : '' }}>No</option>
-                                        </select>
-                                        @error('air_conditioning')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -238,33 +207,29 @@
                             <h3>Other Features</h3>
                             <div class="submit-section">
                                 <div class="checkboxes in-row margin-bottom-20">
-                                    <input id="check-2" type="checkbox" name="features[]" value="Fully Furnished" {{ in_array('Fully Furnished', old('features', $property->features) ?? []) ? 'checked' : '' }}>
-                                    <label for="check-2">Fully Furnished</label>
+                                    <input id="check-air-conditioning" type="checkbox" name="air_conditioning" value="1" {{ $detail->air_conditioning == '1' ? 'checked' : '' }}>
+                                    <label for="check-air-conditioning">Air Conditioning</label>
 
-                                    <input id="check-3" type="checkbox" name="features[]" value="Sea View" {{ in_array('Sea View', old('features', $property->features) ?? []) ? 'checked' : '' }}>
-                                    <label for="check-3">Sea View</label>
+                                    <input id="check-swimming-pool" type="checkbox" name="swimming_pool" value="1" {{ $detail->swimming_pool == '1' ? 'checked' : '' }}>
+                                    <label for="check-swimming-pool">Swimming Pool</label>
 
-                                    <input id="check-4" type="checkbox" name="features[]" value="Electricity Backup" {{ in_array('Electricity Backup', old('features', $property->features) ?? []) ? 'checked' : '' }}>
-                                    <label for="check-4">Electricity Backup</label>
+                                    <input id="check-central-heating" type="checkbox" name="central_heating" value="1" {{ $detail->central_heating == '1' ? 'checked' : '' }}>
+                                    <label for="check-central-heating">Central Heating</label>
 
-                                    <input id="check-5" type="checkbox" name="features[]" value="Central Heating" {{ in_array('Central Heating', old('features', $property->features) ?? []) ? 'checked' : '' }}>
-                                    <label for="check-5">Central Heating</label>
+                                    <input id="check-laundry-room" type="checkbox" name="laundry_room" value="1" {{ $detail->laundry_room == '1' ? 'checked' : '' }}>
+                                    <label for="check-laundry-room">Laundry Room</label>
 
-                                    <input id="check-6" type="checkbox" name="features[]" value="Storage Room" {{ in_array('Storage Room', old('features', $property->features) ?? []) ? 'checked' : '' }}>
-                                    <label for="check-6">Storage Room</label>
+                                    <input id="check-gym" type="checkbox" name="gym" value="1" {{ $detail->gym == '1' ? 'checked' : '' }} >
+                                    <label for="check-gym">Gym</label>
 
-                                    <input id="check-7" type="checkbox" name="features[]" value="Elevator" {{ in_array('Elevator', old('features', $property->features) ?? []) ? 'checked' : '' }}>
-                                    <label for="check-7">Elevator</label>
+                                    <input id="check-alarm" type="checkbox" name="alarm" value="1" {{ $detail->alarm == '1' ? 'checked' : '' }}>
+                                    <label for="check-alarm">Alarm</label>
 
-                                    <input id="check-8" type="checkbox" name="features[]" value="Alarm" {{ in_array('Alarm', old('features', $property->features) ?? []) ? 'checked' : '' }}>
-                                    <label for="check-8">Alarm</label>
-
-                                    <input id="check-9" type="checkbox" name="features[]" value="Gym" {{ in_array('Gym', old('features', $property->features) ?? []) ? 'checked' : '' }}>
-                                    <label for="check-9">Gym</label>
-
-                                    <input id="check-10" type="checkbox" name="features[]" value="Laundry Room" {{ in_array('Laundry Room', old('features', $property->features) ?? []) ? 'checked' : '' }}>
-                                    <label for="check-10">Laundry Room</label>
+                                    <input id="check-window-covering" type="checkbox" name="window_covering" value="1" {{ $detail->window_covering == '1' ? 'checked' : '' }}>
+                                    <label for="check-window-covering">Window Covering</label>
                                 </div>
+
+
                             </div>
 
                             <!-- Contact Details -->
@@ -273,33 +238,33 @@
                                 <div class="row with-forms">
                                     <div class="col-md-4">
                                         <h5>Phone</h5>
-                                        <input type="text" name="phone" value="{{ old('phone', $property->phone) }}"/>
-                                        @error('phone')
+                                        <input type="text" name="contact_name" value="{{ old('contact_name', $detail->contact_name) }}"/>
+                                        @error('contact_name')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-4">
                                         <h5>Email</h5>
-                                        <input type="text" name="email" value="{{ old('email', $property->email) }}"/>
-                                        @error('email')
+                                        <input type="text" name="contact_email" value="{{ old('contact_email', $detail->contact_email) }}"/>
+                                        @error('contact_email')
                                         <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="col-md-4">
-                                        <h5>Website <span>(optional)</span></h5>
-                                        <input type="text" name="website" value="{{ old('website', $property->website) }}"/>
+                                        <h5>Phone <span>(optional)</span></h5>
+                                        <input type="text" name="contact_phone" value="{{ old('contact_phone', $detail->contact_phone) }}"/>
                                     </div>
                                 </div>
                             </div>
-
+                            @endforeach
                             <div class="divider"></div>
                             <button type="submit" class="button preview margin-top-5">Update Property <i class="fa fa-arrow-circle-right"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </form>
-    </div>
+
     <!-- Content / End -->
 @endsection

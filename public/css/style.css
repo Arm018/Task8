@@ -109,6 +109,9 @@ p {
 span {
     font-size: 16px;
 }
+.alert {
+    font-size:16px !important;
+}
 
 ul.top-bar-menu {
     margin: 0;
@@ -5586,6 +5589,9 @@ section.fullwidth.border-bottom {
 .my-account-nav li a:hover {
     color: #66676b;
 }
+.my-account-nav li form button:hover {
+    color: #274abb;
+}
 
 
 .my-account-nav li i {
@@ -5796,7 +5802,7 @@ table.manage-table td.action a {
     margin-left: 21px;
 }
 
-table.manage-table td.action a.delete i {
+table.manage-table td.action button.delete i {
     left: -20px;
 }
 
@@ -5806,7 +5812,15 @@ table.manage-table td.action a i {
     top: 5px;
 }
 
-table.manage-table td.action a.delete:hover {
+table.manage-table td.action button.delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    transition: color .3s;
+}
+
+table.manage-table td.action button.delete:hover {
     color: #f02929;
 }
 
@@ -5823,7 +5837,7 @@ table.manage-table.bookmarks-table .title-container img {
     text-align: right;
 }
 
-body .bookmarks-table td.action a.delete i {
+body .bookmarks-table td.action button.delete i {
     position: relative;
     left: 0;
     top: 0;

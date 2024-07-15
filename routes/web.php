@@ -24,14 +24,13 @@ Route::get('/', function () {
 
     Route::middleware('auth')->group(function () {
         Route::prefix('my-profile')->group(function () {
+
             Route::get('/', [ProfileController::class, 'index'])->name('my-profile');
             Route::get('change-password', [ProfileController::class, 'profilePassword'])->name('profilePassword');
             Route::post('change-password', [ProfileController::class, 'changePassword'])->name('changePassword');
             Route::post('profile/update', [ProfileController::class, 'profileUpdate'])->name('profile.update');
-            Route::get('property', [PropertyController::class, 'index'])->name('profile.property');
-            Route::post('property', [PropertyController::class, 'store'])->name('property.store');
-            Route::get('show', [PropertyController::class, 'show'])->name('property.show');
-            Route::get('edit/{id}', [PropertyController::class, 'edit'])->name('property.edit');
+
+            Route::resource('property', PropertyController::class);
         });
     });
 
