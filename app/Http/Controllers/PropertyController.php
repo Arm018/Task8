@@ -14,79 +14,57 @@ use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
-    public function index($id)
+    public function index()
     {
-        $property = Property::findOrFail($id);
+        $properties = Auth::user()->properties;
+        return view('property.my_properties', compact('properties'));
+    }
+
+    public function create()
+    {
         return view('property.submit_property');
     }
 
-    public function store(Request $request, PropertyRequest $propertyRequest, PropertyDetailRequest $detailRequest)
+    public function store(PropertyRequest $propertyRequest, PropertyDetailRequest $detailRequest)
     {
-
         $property = new Property();
         $property->fill(array_merge(['user_id' => auth()->id()], $propertyRequest->validated()));
         $property->save();
-
 
         $propertyDetails = new PropertyDetail();
         $propertyDetails->fill(array_merge(['property_id' => $property->id], $detailRequest->validated()));
         $propertyDetails->save();
 
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $filePath = $image->store('public/images');
-                $propertyImage = new PropertyImage();
-                $propertyImage->property_id = $property->id;
-                $propertyImage->image = $filePath;
-                $propertyImage->save();
-            }
-        }
+        $this->handleImages($property->id, $propertyRequest);
 
-        return redirect()->route('property.show')->with('success', 'Property created successfully');
-
+        return redirect()->route('property.index')->with('success', 'Property created successfully');
     }
 
-    public function show()
+    public function show($id)
     {
-        $properties = Auth::user()->properties;
-        return view('property.my_properties', compact('properties'));
-
+        $property = Property::with(['details', 'images', 'user'])->findOrFail($id);
+        return view('property.single_property', compact('property'));
     }
 
     public function edit($id)
     {
-
         $property = Property::findOrFail($id);
         return view('property.edit_property', compact('property'));
     }
 
-    public function update($id, Request $request, PropertyRequest $propertyRequest, PropertyDetailRequest $detailRequest)
+    public function update($id, PropertyRequest $propertyRequest, PropertyDetailRequest $detailRequest)
     {
         $property = Property::findOrFail($id);
         $property->fill(array_merge(['user_id' => auth()->id()], $propertyRequest->validated()));
         $property->save();
 
-        $propertyDetails = PropertyDetail::where('property_id', $property->id)->first();
-
-        if ($propertyDetails) {
-            $propertyDetails->fill($detailRequest->validated());
-        } else {
-            $propertyDetails = new PropertyDetail();
-            $propertyDetails->fill(array_merge(['property_id' => $property->id], $detailRequest->validated()));
-        }
+        $propertyDetails = PropertyDetail::where('property_id', $property->id)->first() ?? new PropertyDetail();
+        $propertyDetails->fill(array_merge(['property_id' => $property->id], $detailRequest->validated()));
         $propertyDetails->save();
 
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $filePath = $image->store('public/images');
-                $propertyImage = new PropertyImage();
-                $propertyImage->property_id = $property->id;
-                $propertyImage->image = $filePath;
-                $propertyImage->save();
-            }
-        }
+        $this->handleImages($property->id, $propertyRequest);
 
-        return redirect()->route('property.show')->with('success', 'Property updated successfully.');
+        return redirect()->route('property.index')->with('success', 'Property updated successfully.');
     }
 
     public function destroy($id)
@@ -95,14 +73,19 @@ class PropertyController extends Controller
         $property->images()->delete();
         $property->details()->delete();
         $property->delete();
-        return redirect()->route('property.show')->with('success', 'Property deleted successfully');
+        return redirect()->route('property.index')->with('success', 'Property deleted successfully');
     }
 
-    public function showProperty($id)
+    private function handleImages(int $propertyId, Request $request)
     {
-        $property = Property::with('details')->with('images')->with('user')->findOrFail($id);
-        return view('property.single_property', compact('property'));
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $filePath = $image->store('public/images');
+                $propertyImage = new PropertyImage();
+                $propertyImage->property_id = $propertyId;
+                $propertyImage->image = $filePath;
+                $propertyImage->save();
+            }
+        }
     }
-
-
 }

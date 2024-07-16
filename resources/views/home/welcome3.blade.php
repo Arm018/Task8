@@ -484,7 +484,7 @@
                                 <li>Standard Listing</li>
                                 <li>Limited Support</li>
                             </ul>
-                            <a class="button border" href="{{route('profile.property')}}">Get Started</a>
+                            <a class="button border" href="{{route('property.create')}}">Get Started</a>
                         </div>
 
                     </div>
@@ -509,7 +509,7 @@
                                 <li>Featured In Search Results</li>
                                 <li>24/7 Support</li>
                             </ul>
-                            <a class="button" href="{{route('profile.property')}}">Get Started</a>
+                            <a class="button" href="{{route('property.create')}}">Get Started</a>
                         </div>
                     </div>
 
@@ -529,7 +529,7 @@
                                 <li>Featured In Search Results</li>
                                 <li>24/7 Support</li>
                             </ul>
-                            <a class="button border" href="{{route('profile.property')}}">Get Started</a>
+                            <a class="button border" href="{{route('property.create')}}">Get Started</a>
                         </div>
                     </div>
 

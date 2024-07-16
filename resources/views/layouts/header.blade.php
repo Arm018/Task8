@@ -82,7 +82,7 @@
                                 <li><a href="/">Home 1</a></li>
                                 <li><a href="{{route('home2')}}">Home 2</a></li>
                                 <li><a href="{{route('home3')}}">Home 3</a></li>
-                                <li><a href="index-4.html">Home 4</a></li>
+                                <li><a href="{{route('home4')}}">Home 4</a></li>
                             </ul>
                         </li>
 
@@ -207,9 +207,8 @@
                                 </li>
                                 <li><a href="my-bookmarks.html"><i class="sl sl-icon-star"></i> Bookmarks</a></li>
 
-                                <li>@foreach($properties as $property)
-                                    <a href="{{route('property.show',$property->id)}}"><i class="sl sl-icon-docs"></i> My Properties</a>
-                                    @endforeach
+                                <li>
+                                    <a href="{{route('property.index')}}"><i class="sl sl-icon-docs"></i> My Properties</a>
                                 </li>
                                 <li>
                                     <form action="{{route('logout')}}" method="post">

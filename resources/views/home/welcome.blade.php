@@ -88,7 +88,7 @@
     <!-- Header Container
     ================================================== -->
 
-    @include('layouts.header',['properties' => $properties])
+    @include('layouts.header')
 
     <!-- Header Container / End -->
 
