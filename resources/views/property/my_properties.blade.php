@@ -49,9 +49,14 @@
                         <td class="title-container">
                             <img src="{{Storage::url($property->images->first()->image)}}" style="width: 120px !important;height: 100px !important;" alt="">
                             <div class="title">
-                                <h4><a href="#">{{$property->title}}</a></h4>
+                                <h4><a href="{{route('single.property',$property->id)}}">{{$property->title}}</a></h4>
                                 <span>{{$property->address}}</span>
+
+                                @if($property->status == "For Sale")
+                                <span class="table-property-price">${{$property->price}}</span>
+                                @else
                                 <span class="table-property-price">${{$property->price}} / monthly</span>
+                                @endif
                             </div>
                         </td>
                         <td class="expire-date" style="font-size: 16px">{{$property->timeFormat($property)}}</td>
@@ -74,7 +79,7 @@
 
 
                 </table>
-                <a href="{{route('profile.property')}}" class="margin-top-40 button">Submit New Property</a>
+                <a href="{{route('property.create')}}" class="margin-top-40 button">Submit New Property</a>
             </div>
 
         </div>

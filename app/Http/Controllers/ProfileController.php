@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileRequest;
+use App\Models\Property;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +14,8 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return view('profile.my-profile');
+        $properties = Property::query()->where('user_id', Auth::id())->get();
+        return view('profile.my-profile', compact('properties'));
     }
 
     public function profilePassword()
@@ -41,56 +44,32 @@ class ProfileController extends Controller
 
     }
 
-    public function profileUpdate(Request $request)
+    public function profileUpdate(ProfileRequest $request)
     {
-
-        $request->validate([
-            'name' => 'required|string',
-            'twitter' => 'nullable|url',
-            'facebook' => 'nullable|url',
-            'google_plus' => 'nullable|url',
-            'linkedin' => 'nullable|url',
-        ]);
-
         $user = Auth::user();
         $user->name = $request->name;
         $user->save();
-        if ($user->userInfo) {
-            $user->userInfo->phone = $request->phone;
-            $user->userInfo->about = $request->about;
-            $user->userInfo->title = $request->title;
-            $user->userInfo->twitter = $request->twitter;
-            $user->userInfo->facebook = $request->facebook;
-            $user->userInfo->google_plus = $request->google_plus;
-            $user->userInfo->linkedin = $request->linkedin;
-            if ($request->hasFile('profile_photo')) {
-                $imagePath = $request->file('profile_photo')->store('images', 'public');
-                $user->userInfo->image = $imagePath;
+
+        $userInfo = $user->userInfo ?? new UserInfo;
+
+        $userInfo->phone = $request->phone;
+        $userInfo->about = $request->about;
+        $userInfo->title = $request->title;
+        $userInfo->twitter = $request->twitter;
+        $userInfo->facebook = $request->facebook;
+        $userInfo->google_plus = $request->google_plus;
+        $userInfo->linkedin = $request->linkedin;
+
+        if ($request->hasFile('profile_photo')) {
+            if ($userInfo->image) {
+                Storage::disk('public')->delete($userInfo->image);
             }
-            $user->userInfo()->save($user->userInfo);
-            return back()->with('success', 'Profile updated successfully.');
-        } else {
-            $userInfo = new UserInfo([
-                'phone' => $request->phone,
-                'about' => $request->about,
-                'title' => $request->title,
-                'twitter' => $request->twitter,
-                'facebook' => $request->facebook,
-                'google_plus' => $request->google_plus,
-                'linkedin' => $request->linkedin,
-            ]);
-            if ($request->hasFile('profile_photo')) {
-                if ($userInfo->image) {
-                    Storage::disk('public')->delete($userInfo->image);
-                }
-                $imagePath = $request->file('profile_photo')->store('images', 'public');
-                $userInfo->image = $imagePath;
-            }
-            $user->userInfo()->save($userInfo);
-
-
-            return back()->with('success', 'Profile updated successfully.');
-
+            $imagePath = $request->file('profile_photo')->store('images', 'public');
+            $userInfo->image = $imagePath;
         }
+
+        $user->userInfo()->save($userInfo);
+
+        return back()->with('success', 'Profile updated successfully.');
     }
 }

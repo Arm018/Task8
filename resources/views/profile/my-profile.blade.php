@@ -21,7 +21,7 @@
     </div>
     <div class="container">
         <div class="row">
-            @include('profile.layouts.left_sidebar')
+            @include('profile.layouts.left_sidebar',['properties' => $properties])
             <div class="col-md-8">
                 <div class="row">
                     <form action="{{route('profile.update')}}" method="POST" enctype="multipart/form-data"
@@ -81,12 +81,10 @@
                                 <div class="form-group">
                                     @if(\Illuminate\Support\Facades\Auth::user()->userInfo && \Illuminate\Support\Facades\Auth::user()->userInfo->about)
                                         <textarea name="about" id="about" style="font-size: 16px" cols="30" rows="10"
-                                                  class="form-control p-4">{{\Illuminate\Support\Facades\Auth::user()->userInfo->about}}
-                                        </textarea>
+                                                  class="form-control p-4">{{\Illuminate\Support\Facades\Auth::user()->userInfo->about}}</textarea>
                                     @else
                                         <textarea name="about" id="about" style="font-size: 16px" cols="30" rows="10"
-                                                  placeholder="Developer In Munich" class="form-control p-4">
-                                        </textarea>
+                                                  placeholder="Developer In Munich" class="form-control p-4"></textarea>
 
                                     @endif
 

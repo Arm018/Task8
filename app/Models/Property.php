@@ -28,7 +28,7 @@ class Property extends Model
     }
     public function details()
     {
-        return $this->hasMany(PropertyDetail::class,'property_id','id');
+        return $this->hasOne(PropertyDetail::class,'property_id','id');
     }
     public function images()
     {

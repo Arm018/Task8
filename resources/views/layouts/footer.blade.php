@@ -26,7 +26,7 @@
                     <li><a href="#">Blog</a></li>
                     <li><a href="#">Our Agents</a></li>
                     <li><a href="#">How It Works</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="{{route('contactUs')}}">Contact</a></li>
                 </ul>
                 <div class="clearfix"></div>
             </div>

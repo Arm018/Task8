@@ -11,8 +11,12 @@
 
             <ul class="my-account-nav">
                 <li class="sub-nav-title">Manage Listings</li>
-                <li><a href="{{route('property.show')}}" @if (request()->routeIs('property.show')) class="current" @endif><i class="sl sl-icon-docs"></i> My Properties</a></li>
-                <li><a href="{{route('profile.property')}}"><i class="sl sl-icon-action-redo"></i> Submit New Property</a></li>
+                <li>
+                    @foreach($properties as $property)
+                    <a href="{{route('property.show',$property->id)}}" @if (request()->routeIs('property.show')) class="current" @endif><i class="sl sl-icon-docs"></i> My Properties</a>
+                    @endforeach
+                </li>
+                <li><a href="{{route('property.create')}}"><i class="sl sl-icon-action-redo"></i> Submit New Property</a></li>
             </ul>
 
             <ul class="my-account-nav">
