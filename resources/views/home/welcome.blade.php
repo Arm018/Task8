@@ -107,7 +107,7 @@
                             <h2>Find Your Dream Home</h2>
 
                             <!-- Main Search -->
-                            <form class="main-search-form">
+                            <form class="main-search-form" action="{{route('search')}}" method="get">
 
                                 <!-- Type -->
                                 <div class="search-type">
@@ -123,7 +123,7 @@
 
                                     <!-- Main Search Input -->
                                     <div class="main-search-input larger-input">
-                                        <input type="text" class="ico-01" id="autocomplete-input" placeholder="Enter address e.g. street, city and state or zip" value=""/>
+                                        <input type="text" name="address" class="ico-01" id="autocomplete-input" placeholder="Enter address e.g. street, city and state or zip" value=""/>
                                         <button class="button">Search</button>
                                     </div>
 
@@ -132,13 +132,13 @@
 
                                         <!-- Property Type -->
                                         <div class="col-md-4">
-                                            <select data-placeholder="Any Type" class="chosen-select-no-single" >
-                                                <option>Any Type</option>
-                                                <option>Apartments</option>
-                                                <option>Houses</option>
-                                                <option>Commercial</option>
-                                                <option>Garages</option>
-                                                <option>Lots</option>
+                                            <select name="type" data-placeholder="Any Type" class="chosen-select-no-single">
+                                                <option value="">Any Type</option>
+                                                <option value="apartment">Apartments</option>
+                                                <option value="house">Houses</option>
+                                                <option value="commercial">Commercial</option>
+                                                <option value="garage">Garages</option>
+                                                <option value="lot">Lots</option>
                                             </select>
                                         </div>
 
@@ -148,7 +148,7 @@
 
                                             <!-- Select Input -->
                                             <div class="select-input">
-                                                <input type="text" placeholder="Min Price" data-unit="USD">
+                                                <input type="number" name="min_price" placeholder="Min Price" data-unit="USD">
                                             </div>
                                             <!-- Select Input / End -->
 
@@ -160,7 +160,7 @@
 
                                             <!-- Select Input -->
                                             <div class="select-input">
-                                                <input type="text" placeholder="Max Price" data-unit="USD">
+                                                <input type="number" name="max_price" placeholder="Max Price" data-unit="USD">
                                             </div>
                                             <!-- Select Input / End -->
 
@@ -184,7 +184,7 @@
 
                                                     <!-- Select Input -->
                                                     <div class="select-input">
-                                                        <input type="text" placeholder="Min Area" data-unit="Sq Ft">
+                                                        <input type="number" name="min_area" placeholder="Min Area" data-unit="Sq Ft">
                                                     </div>
                                                     <!-- Select Input / End -->
 
@@ -195,7 +195,7 @@
 
                                                     <!-- Select Input -->
                                                     <div class="select-input">
-                                                        <input type="text" placeholder="Max Area" data-unit="Sq Ft">
+                                                        <input type="number" name="max_area" placeholder="Max Area" data-unit="Sq Ft">
                                                     </div>
                                                     <!-- Select Input / End -->
 
@@ -210,27 +210,25 @@
 
                                                 <!-- Min Area -->
                                                 <div class="col-md-6">
-                                                    <select data-placeholder="Beds" class="chosen-select-no-single" >
-                                                        <option label="blank"></option>
-                                                        <option>Beds (Any)</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                    <select name="beds" data-placeholder="Beds" class="chosen-select-no-single">
+                                                        <option value="">Beds (Any)</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
                                                     </select>
                                                 </div>
 
                                                 <!-- Max Area -->
                                                 <div class="col-md-6">
-                                                    <select data-placeholder="Baths" class="chosen-select-no-single" >
-                                                        <option label="blank"></option>
-                                                        <option>Baths (Any)</option>
-                                                        <option>1</option>
-                                                        <option>2</option>
-                                                        <option>3</option>
-                                                        <option>4</option>
-                                                        <option>5</option>
+                                                    <select name="baths" data-placeholder="Baths" class="chosen-select-no-single">
+                                                        <option value="">Baths (Any)</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
                                                     </select>
                                                 </div>
 
@@ -241,26 +239,26 @@
                                             <!-- Checkboxes -->
                                             <div class="checkboxes in-row">
 
-                                                <input id="check-2" type="checkbox" name="check">
+                                                <input id="check-2" type="checkbox" name="air_conditioning">
                                                 <label for="check-2">Air Conditioning</label>
 
-                                                <input id="check-3" type="checkbox" name="check">
+                                                <input id="check-3" type="checkbox" name="swimming_pool">
                                                 <label for="check-3">Swimming Pool</label>
 
-                                                <input id="check-4" type="checkbox" name="check" >
+                                                <input id="check-4" type="checkbox" name="central_heating" >
                                                 <label for="check-4">Central Heating</label>
 
-                                                <input id="check-5" type="checkbox" name="check">
+                                                <input id="check-5" type="checkbox" name="laundry_room">
                                                 <label for="check-5">Laundry Room</label>
 
 
-                                                <input id="check-6" type="checkbox" name="check">
+                                                <input id="check-6" type="checkbox" name="gym">
                                                 <label for="check-6">Gym</label>
 
-                                                <input id="check-7" type="checkbox" name="check">
+                                                <input id="check-7" type="checkbox" name="alarm">
                                                 <label for="check-7">Alarm</label>
 
-                                                <input id="check-8" type="checkbox" name="check">
+                                                <input id="check-8" type="checkbox" name="window_covering">
                                                 <label for="check-8">Window Covering</label>
 
                                             </div>
@@ -646,20 +644,20 @@
     <script type="text/javascript" src="/scripts/custom.js"></script>
 
     <!-- Google Autocomplete -->
-    <script>
-        function initAutocomplete() {
-            var input = document.getElementById('autocomplete-input');
-            var autocomplete = new google.maps.places.Autocomplete(input);
+{{--    <script>--}}
+{{--        function initAutocomplete() {--}}
+{{--            var input = document.getElementById('autocomplete-input');--}}
+{{--            var autocomplete = new google.maps.places.Autocomplete(input);--}}
 
-            autocomplete.addListener('place_changed', function() {
-                var place = autocomplete.getPlace();
-                if (!place.geometry) {
-                    window.alert("No details available for input: '" + place.name + "'");
-                    return;
-                }
-            });
-        }
-    </script>
+{{--            autocomplete.addListener('place_changed', function() {--}}
+{{--                var place = autocomplete.getPlace();--}}
+{{--                if (!place.geometry) {--}}
+{{--                    window.alert("No details available for input: '" + place.name + "'");--}}
+{{--                    return;--}}
+{{--                }--}}
+{{--            });--}}
+{{--        }--}}
+{{--    </script>--}}
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete"></script>
 
 

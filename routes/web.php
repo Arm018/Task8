@@ -5,6 +5,7 @@ use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('single_property/{id}', [PropertyController::class, 'show'])->name('single.property');
-
+Route::get('search',[SearchController::class,'search'])->name('search');
 Route::middleware('auth')->group(function () {
 
     Route::get('home2', [IndexController::class, 'index2'])->name('home2');

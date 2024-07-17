@@ -30,4 +30,5 @@ class IndexController extends Controller
         return view('home.welcome4', compact('properties'));
     }
 
+
 }
