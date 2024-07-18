@@ -27,7 +27,9 @@
         <div class="csm-trigger"></div>
 
         <div class="csm-content">
-            <h4>Compare Properties <div class="csm-mobile-trigger"></div></h4>
+            <h4>Compare Properties
+                <div class="csm-mobile-trigger"></div>
+            </h4>
 
             <div class="csm-properties">
 
@@ -94,100 +96,36 @@
     <!-- Slider
     ================================================== -->
     <div class="fullwidth-home-slider margin-bottom-0">
-
-        <!-- Slide -->
-        <div data-background-image="images/home-slider-01.jpg" class="item">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="home-slider-container">
-
-                            <!-- Slide Title -->
-                            <div class="home-slider-desc">
-
-                                <div class="home-slider-price">
-                                    $1700 <i>/ monthly</i>
+        @foreach ($properties as $property)
+            @foreach ($property->images->take(1) as $image)
+                <div data-background-image="{{ \Illuminate\Support\Facades\Storage::url($image->image) }}" class="item">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="home-slider-container">
+                                    <div class="home-slider-desc">
+                                        <div class="home-slider-price">
+                                            ${{ $property->price }} @if ($property->status == 'For Rent')
+                                                <i>/ monthly</i>
+                                            @endif
+                                        </div>
+                                        <div class="home-slider-title">
+                                            <h3>
+                                                <a href="{{ route('single.property', $property->id) }}">{{ $property->title }}</a>
+                                            </h3>
+                                            <span><i class="fa fa-map-marker"></i> {{ $property->address }}, {{ $property->city }}, {{ $property->state }}</span>
+                                        </div>
+                                        <a href="{{ route('single.property', $property->id) }}" class="read-more">View
+                                            Details <i class="fa fa-angle-right"></i></a>
+                                    </div>
                                 </div>
-
-                                <div class="home-slider-title">
-                                    <h3><a href="single-property-page-1.html">Meridian Villas</a></h3>
-                                    <span><i class="fa fa-map-marker"></i> 778 Country St. Panama City, FL</span>
-                                </div>
-
-                                <a href="single-property-page-1.html" class="read-more">View Details <i class="fa fa-angle-right"></i></a>
-
                             </div>
-                            <!-- Slide Title / End -->
-
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Slide -->
-        <div data-background-image="images/home-slider-02.jpg" class="item">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="home-slider-container">
-
-                            <!-- Slide Title -->
-                            <div class="home-slider-desc">
-
-                                <div class="home-slider-price">
-                                    $325,000
-                                </div>
-
-                                <div class="home-slider-title">
-                                    <h3><a href="single-property-page-1.html">Eagle Apartments</a></h3>
-                                    <span><i class="fa fa-map-marker"></i> 9364 School St. Lynchburg, NY</span>
-                                </div>
-
-                                <a href="single-property-page-1.html" class="read-more">View Details <i class="fa fa-angle-right"></i></a>
-
-                            </div>
-                            <!-- Slide Title / End -->
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide -->
-        <div data-background-image="images/home-slider-03.jpg" class="item">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="home-slider-container">
-
-                            <!-- Slide Title -->
-                            <div class="home-slider-desc">
-
-                                <div class="home-slider-price">
-                                    $500 <i>/ monthly</i>
-                                </div>
-
-                                <div class="home-slider-title">
-                                    <h3><a href="single-property-page-1.html">Old Town Manchester</a></h3>
-                                    <span><i class="fa fa-map-marker"></i> 7843 Durham Avenue, MD </span>
-                                </div>
-
-                                <a href="single-property-page-1.html" class="read-more">View Details <i class="fa fa-angle-right"></i></a>
-
-                            </div>
-                            <!-- Slide Title / End -->
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+            @endforeach
+        @endforeach
     </div>
-
 
 
     <!-- Content
@@ -207,33 +145,35 @@
                     <!-- Listing Item -->
                     @foreach($properties as $property)
 
-                    <div class="carousel-item">
-                        <div class="listing-item compact">
-                            <a href="{{route('property.show',$property->id)}}" class="listing-img-container">
+                        <div class="carousel-item">
+                            <div class="listing-item compact">
+                                <a href="{{route('property.show',$property->id)}}" class="listing-img-container">
 
-                                <div class="listing-badges">
-                                    <span class="featured">Featured</span>
-                                    <span>{{$property->status}}</span>
-                                </div>
+                                    <div class="listing-badges">
+                                        <span class="featured">Featured</span>
+                                        <span>{{$property->status}}</span>
+                                    </div>
 
-                                <div class="listing-img-content">
-                                    <span class="listing-compact-title">{{$property->title}}<i>${{$property->price}}</i></span>
+                                    <div class="listing-img-content">
+                                        <span
+                                            class="listing-compact-title">{{$property->title}}<i>${{$property->price}}</i></span>
 
-                                    <ul class="listing-hidden-content">
-                                        <li>Area <span>{{$property->area}} sq ft</span></li>
-                                        <li>Rooms <span>{{$property->rooms}}</span></li>
-                                        <li>Beds <span>{{$property->details->bedrooms}}</span></li>
-                                        <li>Baths <span>{{$property->details->bathrooms}}</span></li>
-                                    </ul>
-                                </div>
+                                        <ul class="listing-hidden-content">
+                                            <li>Area <span>{{$property->area}} sq ft</span></li>
+                                            <li>Rooms <span>{{$property->rooms}}</span></li>
+                                            <li>Beds <span>{{$property->details->bedrooms}}</span></li>
+                                            <li>Baths <span>{{$property->details->bathrooms}}</span></li>
+                                        </ul>
+                                    </div>
 
-                                @foreach($property->images->take(1) as $image)
-                                    <img src="{{\Illuminate\Support\Facades\Storage::url($image->image)}}" height="300" alt="">
-                                @endforeach
-                            </a>
+                                    @foreach($property->images->take(1) as $image)
+                                        <img src="{{\Illuminate\Support\Facades\Storage::url($image->image)}}"
+                                             height="300" alt="">
+                                    @endforeach
+                                </a>
 
+                            </div>
                         </div>
-                    </div>
                     @endforeach
 
                     <!-- Listing Item / End -->
@@ -244,7 +184,6 @@
         </div>
     </div>
     <!-- Featured / End -->
-
 
 
     <!-- Fullwidth Section -->
@@ -259,7 +198,8 @@
                 <div class="col-md-4">
 
                     <!-- Image Box -->
-                    <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-01.jpg">
+                    <a href="listings-list-with-sidebar.html" class="img-box"
+                       data-background-image="images/popular-location-01.jpg">
 
                         <!-- Badge -->
                         <div class="listing-badges">
@@ -277,7 +217,8 @@
                 <div class="col-md-8">
 
                     <!-- Image Box -->
-                    <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-02.jpg">
+                    <a href="listings-list-with-sidebar.html" class="img-box"
+                       data-background-image="images/popular-location-02.jpg">
                         <div class="img-box-content visible">
                             <h4>Los Angeles</h4>
                             <span>24 Properties</span>
@@ -289,7 +230,8 @@
                 <div class="col-md-8">
 
                     <!-- Image Box -->
-                    <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-03.jpg">
+                    <a href="listings-list-with-sidebar.html" class="img-box"
+                       data-background-image="images/popular-location-03.jpg">
                         <div class="img-box-content visible">
                             <h4>San Francisco </h4>
                             <span>12 Properties</span>
@@ -301,7 +243,8 @@
                 <div class="col-md-4">
 
                     <!-- Image Box -->
-                    <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-04.jpg">
+                    <a href="listings-list-with-sidebar.html" class="img-box"
+                       data-background-image="images/popular-location-04.jpg">
                         <div class="img-box-content visible">
                             <h4>Miami</h4>
                             <span>9 Properties</span>
@@ -383,7 +326,8 @@
         <!-- Counters / End -->
 
         <!-- Flip banner -->
-        <a href="listings-half-map-grid-standard.html" class="flip-banner parallax" data-color="#274abb" data-color-opacity="0.9" data-img-width="2500" data-img-height="1600">
+        <a href="listings-half-map-grid-standard.html" class="flip-banner parallax" data-color="#274abb"
+           data-color-opacity="0.9" data-img-width="2500" data-img-height="1600">
             <div class="flip-banner-content">
                 <h2 class="flip-visible">We help people and homes find each other</h2>
                 <h2 class="flip-hidden">Browse Properties <i class="sl sl-icon-arrow-right"></i></h2>
@@ -393,7 +337,6 @@
 
     </div>
     <!-- Counters Container / End -->
-
 
 
     <!-- Agents Section -->
@@ -561,13 +504,15 @@
     <!-- Agents Section / End -->
 
 
-    <section class="fullwidth border-top margin-top-40 margin-bottom-0 padding-top-60 padding-bottom-65" data-background-color="#ffffff">
+    <section class="fullwidth border-top margin-top-40 margin-bottom-0 padding-top-60 padding-bottom-65"
+             data-background-color="#ffffff">
         <!-- Logo Carousel -->
         <div class="container">
             <div class="row">
 
                 <div class="col-md-12">
-                    <h3 class="headline centered margin-bottom-40 margin-top-10">Companies We've Worked With <span>We can assist you with your innovation or commercialisation journey!</span></h3>
+                    <h3 class="headline centered margin-bottom-40 margin-top-10">Companies We've Worked With <span>We can assist you with your innovation or commercialisation journey!</span>
+                    </h3>
                 </div>
 
                 <!-- Carousel -->
@@ -613,11 +558,10 @@
     </section>
 
 
-
     <!-- Footer
     ================================================== -->
 
-        @include('layouts.footer')
+    @include('layouts.footer')
 
     <!-- Footer / End -->
 
@@ -640,9 +584,6 @@
     <script type="text/javascript" src="/scripts/tooltips.min.js"></script>
     <script type="text/javascript" src="/scripts/masonry.min.js"></script>
     <script type="text/javascript" src="/scripts/custom.js"></script>
-
-
-
 
 
 </div>

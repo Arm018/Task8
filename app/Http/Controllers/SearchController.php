@@ -18,8 +18,13 @@ class SearchController extends Controller
         $max_area = $request->input('max_area');
         $beds = $request->input('beds');
         $baths = $request->input('baths');
-        $checkboxes = ['air_conditioning', 'swimming_pool', 'central_heating', 'laundry_room', 'gym', 'alarm', 'window_covering'];
+        $status = $request->input('status');
+        $rooms = $request->input('rooms');
+        $age = $request->input('age');
 
+
+        $checkboxes = ['air_conditioning', 'swimming_pool', 'central_heating', 'laundry_room', 'gym', 'alarm', 'window_covering'];
+//        dd($request->all());
         $filteredProperties = Property::query()
             ->join('property_details', 'property_details.property_id', '=', 'properties.id')
             ->when($min_price, function ($query, $min_price) {
@@ -31,6 +36,9 @@ class SearchController extends Controller
             ->when($type, function ($query, $type) {
                 return $query->where('type', $type);
             })
+            ->when($rooms, function ($query, $rooms) {
+                return $query->where('rooms', $rooms);
+            })
             ->when($address, function ($query, $address) {
                 return $query->where('address', 'LIKE', '%' . $address . '%');
             })
@@ -39,6 +47,12 @@ class SearchController extends Controller
             })
             ->when($max_area, function ($query, $max_area) {
                 return $query->where('area', '<=', $max_area);
+            })
+            ->when($status, function ($query, $status) {
+                return $query->where('status', $status);
+            })
+            ->when($age, function ($query, $age) {
+                return $query->where('property_details.building_age', '=', $age);
             })
             ->when($beds, function ($query, $beds) {
                 return $query->where('property_details.bedrooms', '=', $beds);
@@ -57,9 +71,19 @@ class SearchController extends Controller
                 return $query;
             })
             ->orderBy('properties.created_at')
-            ->paginate(2);
+            ->paginate(6);
 
-        return view('listing.listing_list_sidebar', compact('filteredProperties'));
+        $view = $request->input('view', 'list');
+
+        switch ($view) {
+            case 'full':
+                return view('listing.listing_list_full', compact('filteredProperties'));
+            case 'map':
+                return view('listing.listing_list_map', compact('filteredProperties'));
+            case 'list':
+            default:
+                return view('listing.listing_list_sidebar', compact('filteredProperties'));
+        }
     }
 
 

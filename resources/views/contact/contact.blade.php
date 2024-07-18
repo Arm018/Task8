@@ -121,6 +121,8 @@
         </div>
 
     </div>
+    <script type="text/javascript" src="/scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/scripts/jquery-migrate-3.1.0.min.js"></script>
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
     <script type="text/javascript" src="/scripts/infobox.min.js"></script>
     <script type="text/javascript" src="/scripts/markerclusterer.js"></script>

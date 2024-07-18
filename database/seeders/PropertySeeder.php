@@ -23,7 +23,7 @@ class PropertySeeder extends Seeder
                 'status' => ['For Sale', 'For Rent'][rand(0, 1)],
                 'type' => 'Apartment',
                 'price' => rand(100000, 500000),
-                'area' => rand(1000, 5000),
+                'area' => rand(10, 1500),
                 'rooms' => rand(1, 5),
                 'address' => fake()->streetAddress,
                 'city' => fake()->city,

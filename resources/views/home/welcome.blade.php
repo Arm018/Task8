@@ -108,7 +108,7 @@
 
                             <!-- Main Search -->
                             <form class="main-search-form" action="{{route('search')}}" method="get">
-
+                                <input type="hidden" name="view" value="list">
                                 <!-- Type -->
                                 <div class="search-type">
                                     <label class="active"><input class="first-tab" name="tab" checked="checked" type="radio">Any Status</label>

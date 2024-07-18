@@ -117,7 +117,7 @@
                         <a href="#" class="adv-search-btn button">Advanced Search <i class="fa fa-caret-up"></i></a>
 
                         <!-- Main Search -->
-                        <form class="main-search-form">
+                        <form class="main-search-form" action="{{route('search')}}" method="get">
 
                             <!-- Type -->
                             <div class="search-type" style="display: none;">
@@ -136,30 +136,30 @@
 
                                     <!-- Status -->
                                     <div class="col-md-3 col-sm-6">
-                                        <select data-placeholder="Any Status" class="chosen-select-no-single" >
-                                            <option>Any Status</option>
-                                            <option>For Sale</option>
-                                            <option>For Rent</option>
+                                        <select name="status" data-placeholder="Any Status" class="chosen-select-no-single">
+                                            <option value="">Any Status</option>
+                                            <option value="For Sale">For Sale</option>
+                                            <option value="For Rent">For Rent</option>
                                         </select>
                                     </div>
 
                                     <!-- Property Type -->
                                     <div class="col-md-3 col-sm-6">
-                                        <select data-placeholder="Any Type" class="chosen-select-no-single" >
-                                            <option>Any Type</option>
-                                            <option>Apartments</option>
-                                            <option>Houses</option>
-                                            <option>Commercial</option>
-                                            <option>Garages</option>
-                                            <option>Lots</option>
+                                        <select name="type" data-placeholder="Any Type" class="chosen-select-no-single">
+                                            <option value="">Any Type</option>
+                                            <option value="apartment">Apartments</option>
+                                            <option value="house">Houses</option>
+                                            <option value="commercial">Commercial</option>
+                                            <option value="garage">Garages</option>
+                                            <option value="lot">Lots</option>
                                         </select>
                                     </div>
 
                                     <!-- Main Search Input -->
                                     <div class="col-md-6">
                                         <div class="main-search-input">
-                                            <input type="text" placeholder="Enter address e.g. street, city or state" value=""/>
-                                            <button class="button">Search</button>
+                                            <input type="text" name="address" placeholder="Enter address e.g. street, city or state" value=""/>
+                                            <button class="button" type="submit">Search</button>
                                         </div>
                                     </div>
 
@@ -174,18 +174,8 @@
                                     <div class="col-md-3 col-sm-6">
 
                                         <!-- Select Input -->
-                                        <div class="select-input disabled-first-option">
-                                            <input type="text" placeholder="Min Area" data-unit="Sq Ft">
-                                            <select>
-                                                <option>Min Area</option>
-                                                <option>300</option>
-                                                <option>400</option>
-                                                <option>500</option>
-                                                <option>700</option>
-                                                <option>800</option>
-                                                <option>1000</option>
-                                                <option>1500</option>
-                                            </select>
+                                        <div class="select-input">
+                                            <input type="number" name="min_area" placeholder="Min Area" data-unit="Sq Ft">
                                         </div>
                                         <!-- Select Input / End -->
 
@@ -195,18 +185,8 @@
                                     <div class="col-md-3 col-sm-6">
 
                                         <!-- Select Input -->
-                                        <div class="select-input disabled-first-option">
-                                            <input type="text" placeholder="Max Area" data-unit="Sq Ft">
-                                            <select>
-                                                <option>Max Area</option>
-                                                <option>300</option>
-                                                <option>400</option>
-                                                <option>500</option>
-                                                <option>700</option>
-                                                <option>800</option>
-                                                <option>1000</option>
-                                                <option>1500</option>
-                                            </select>
+                                        <div class="select-input">
+                                            <input type="number" name="max_area" placeholder="Max Area" data-unit="Sq Ft">
                                         </div>
                                         <!-- Select Input / End -->
 
@@ -218,31 +198,8 @@
 
                                         <!-- Select Input -->
                                         <div class="select-input disabled-first-option">
-                                            <input type="text" placeholder="Min Price" data-unit="USD">
-                                            <select>
-                                                <option>Min Price</option>
-                                                <option>1 000</option>
-                                                <option>2 000</option>
-                                                <option>3 000</option>
-                                                <option>4 000</option>
-                                                <option>5 000</option>
-                                                <option>10 000</option>
-                                                <option>15 000</option>
-                                                <option>20 000</option>
-                                                <option>30 000</option>
-                                                <option>40 000</option>
-                                                <option>50 000</option>
-                                                <option>60 000</option>
-                                                <option>70 000</option>
-                                                <option>80 000</option>
-                                                <option>90 000</option>
-                                                <option>100 000</option>
-                                                <option>110 000</option>
-                                                <option>120 000</option>
-                                                <option>130 000</option>
-                                                <option>140 000</option>
-                                                <option>150 000</option>
-                                            </select>
+                                            <input type="number" name="min_price" placeholder="Min Price" data-unit="USD">
+
                                         </div>
                                         <!-- Select Input / End -->
 
@@ -254,31 +211,8 @@
 
                                         <!-- Select Input -->
                                         <div class="select-input disabled-first-option">
-                                            <input type="text" placeholder="Max Price" data-unit="USD">
-                                            <select>
-                                                <option>Max Price</option>
-                                                <option>1 000</option>
-                                                <option>2 000</option>
-                                                <option>3 000</option>
-                                                <option>4 000</option>
-                                                <option>5 000</option>
-                                                <option>10 000</option>
-                                                <option>15 000</option>
-                                                <option>20 000</option>
-                                                <option>30 000</option>
-                                                <option>40 000</option>
-                                                <option>50 000</option>
-                                                <option>60 000</option>
-                                                <option>70 000</option>
-                                                <option>80 000</option>
-                                                <option>90 000</option>
-                                                <option>100 000</option>
-                                                <option>110 000</option>
-                                                <option>120 000</option>
-                                                <option>130 000</option>
-                                                <option>140 000</option>
-                                                <option>150 000</option>
-                                            </select>
+                                            <input type="number" name="max_price" placeholder="Max Price" data-unit="USD">
+
                                         </div>
                                         <!-- Select Input / End -->
 

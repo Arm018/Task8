@@ -105,36 +105,38 @@
                         <h2>Find New Home</h2>
 
                         <!-- Row With Forms -->
-                        <div class="row with-forms">
+                        <form class="row with-forms" action="{{route('search')}}" method="get">
 
                             <!-- Property Type -->
                             <div class="col-md-3">
-                                <select data-placeholder="Any Type" class="chosen-select-no-single" >
-                                    <option>Apartments</option>
-                                    <option>Houses</option>
-                                    <option>Commercial</option>
-                                    <option>Garages</option>
-                                    <option>Lots</option>
+                                <select name="type" data-placeholder="Any Type" class="chosen-select-no-single">
+                                    <option value="">Any Type</option>
+                                    <option value="apartment">Apartments</option>
+                                    <option value="house">Houses</option>
+                                    <option value="commercial">Commercial</option>
+                                    <option value="garage">Garages</option>
+                                    <option value="lot">Lots</option>
                                 </select>
                             </div>
 
                             <!-- Status -->
                             <div class="col-md-3">
-                                <select data-placeholder="Any Status" class="chosen-select-no-single" >
-                                    <option>For Sale</option>
-                                    <option>For Rent</option>
+                                <select name="status" data-placeholder="Any Status" class="chosen-select-no-single">
+                                    <option value="">Any Status</option>
+                                    <option value="For Sale">For Sale</option>
+                                    <option value="For Rent">For Rent</option>
                                 </select>
                             </div>
 
                             <!-- Main Search Input -->
                             <div class="col-md-6">
                                 <div class="main-search-input">
-                                    <input type="text" placeholder="Enter address e.g. street, city or state" value=""/>
-                                    <button class="button"><i class="fa fa-search"></i></button>
+                                    <input type="text" name="address" placeholder="Enter address e.g. street, city or state" value=""/>
+                                    <button class="button" type="submit"><i class="fa fa-search"></i></button>
                                 </div>
                             </div>
 
-                        </div>
+                        </form>
                         <!-- Row With Forms / End -->
 
                         <!-- Browse Jobs -->

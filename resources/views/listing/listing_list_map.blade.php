@@ -1,32 +1,18 @@
 @extends('layouts.app')
 @section('content')
-    <div class="parallax titlebar"
-         data-background="images/listings-parallax.jpg"
-         data-color="#333333"
-         data-color-opacity="0.7"
-         data-img-width="800"
-         data-img-height="505">
-
-        <div id="titlebar">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-
-                        <h2>Listings</h2>
-                        <span>Grid Layout With Sidebar</span>
-
-                        <!-- Breadcrumbs -->
-                        <nav id="breadcrumbs">
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li>Listings</li>
-                            </ul>
-                        </nav>
-
-                    </div>
-                </div>
-            </div>
+    <!-- Map
+================================================== -->
+    <div id="map-container">
+        <div id="map">
+            <!-- map goes here -->
         </div>
+
+        <!-- Map Navigation -->
+        <a href="#" id="scrollEnabling" title="Enable or disable scrolling on map">Enable Scrolling</a>
+        <ul id="mapnav-buttons">
+            <li><a href="#" id="prevpoint" title="Previous point on map">Prev</a></li>
+            <li><a href="#" id="nextpoint" title="Next point on mp">Next</a></li>
+        </ul>
     </div>
 
 
@@ -39,7 +25,7 @@
 
                 <!-- Main Search Input -->
                 <form class="main-search-input margin-bottom-35" action="{{route('search')}}" method="get">
-                    <input type="hidden" name="view" value="list">
+                    <input type="hidden" name="view" value="map">
                     <input type="text" name="address" class="ico-01"
                            placeholder="Enter address e.g. street, city and state or zip"
                            value=""/>
@@ -56,7 +42,7 @@
 
                             <div class="sort-by-select">
                                 <form id="sortForm" method="GET" action="{{ route('order') }}">
-                                    <input type="hidden" name="view" value="list">
+                                    <input type="hidden" name="view" value="map">
                                     <select name="sort" data-placeholder="Default order" class="chosen-select-no-single"
                                             onchange="document.getElementById('sortForm').submit();">
                                         <option value="" {{ request('sort') == '' ? 'selected' : '' }}>Default Order
@@ -177,7 +163,7 @@
 
                     <!-- Widget -->
                     <form class="widget margin-bottom-40" action="{{route('search')}}" method="get">
-                        <input type="hidden" name="view" value="list">
+                        <input type="hidden" name="view" value="map">
                         <h3 class="margin-top-0 margin-bottom-35">Find New Home</h3>
 
                         <!-- Row -->
@@ -215,7 +201,7 @@
                         <div class="row with-forms">
                             <!-- States -->
                             <div class="col-md-12">
-                                <select data-placeholder="All States" class="chosen-select">
+                                <select data-placeholder="All States" class="chosen-select" >
                                     <option>All States</option>
                                     <option>Alabama</option>
                                     <option>Alaska</option>
@@ -277,7 +263,7 @@
                         <div class="row with-forms">
                             <!-- Cities -->
                             <div class="col-md-12">
-                                <select data-placeholder="All Cities" class="chosen-select">
+                                <select data-placeholder="All Cities" class="chosen-select" >
                                     <option>All Cities</option>
                                     <option>New York</option>
                                     <option>Los Angeles</option>
@@ -336,10 +322,9 @@
                         <!-- Area Range -->
                         <div class="range-slider">
                             <label>Area Range</label>
-                            <div id="area-range" data-min="0" data-max="50000" data-unit="sq ft"></div>
+                            <div id="area-range" data-min="0" data-max="1500" data-unit="sq ft"></div>
                             <div class="clearfix"></div>
                         </div>
-
 
                         <br>
 
@@ -351,9 +336,9 @@
                         </div>
 
 
+
                         <!-- More Search Options -->
-                        <a href="#" class="more-search-options-trigger margin-bottom-10 margin-top-30"
-                           data-open-title="Additional Features" data-close-title="Additional Features"></a>
+                        <a href="#" class="more-search-options-trigger margin-bottom-10 margin-top-30" data-open-title="Additional Features" data-close-title="Additional Features"></a>
 
                         <div class="more-search-options relative">
 
@@ -388,7 +373,7 @@
                         </div>
                         <!-- More Search Options / End -->
 
-                        <button class="button fullwidth margin-top-30">Search</button>
+                        <button class="button fullwidth margin-top-30" type="submit">Search</button>
 
 
                     </form>
@@ -397,22 +382,14 @@
                 </div>
             </div>
             <!-- Sidebar / End -->
+
         </div>
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const areaRange = document.getElementById('area-range');
-            const minAreaInput = document.getElementById('min_area');
-            const maxAreaInput = document.getElementById('max_area');
+    <script type="text/javascript" src="/scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/scripts/jquery-migrate-3.1.0.min.js"></script>
 
-            // Get the data-min and data-max values
-            const minArea = areaRange.getAttribute('data-min');
-            const maxArea = areaRange.getAttribute('data-max');
-
-            // Set the hidden input values
-            minAreaInput.value = minArea;
-            maxAreaInput.value = maxArea;
-        });
-    </script>
-
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;language=en"></script>
+    <script type="text/javascript" src="/scripts/infobox.min.js"></script>
+    <script type="text/javascript" src="/scripts/markerclusterer.js"></script>
+    <script type="text/javascript" src="/scripts/maps.js"></script>
 @endsection

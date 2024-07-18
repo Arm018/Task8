@@ -85,6 +85,9 @@
 ------------------------------------- */
 
 /* Common Styles */
+ul {
+    font-size: 14px !important;
+}
 #top-bar {
     background-color: #66676b;
     color: #fff;
@@ -1029,6 +1032,14 @@ button.widget-button {
     display: block;
     color: #444;
     text-decoration: none;
+}
+#navigation ul form button {
+    color: #707070 !important;
+    background: none;
+    border: none;
+    font-size: 16px;
+    padding: 10px 30px 10px 15px !important;
+
 }
 
 #navigation ul li {

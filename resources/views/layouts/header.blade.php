@@ -90,9 +90,19 @@
                             <ul>
                                 <li><a href="#">List Layout</a>
                                     <ul>
-                                        <li><a href="listings-list-with-sidebar.html">With Sidebar</a></li>
-                                        <li><a href="listings-list-with-map.html">With Map</a></li>
-                                        <li><a href="listings-list-full-width.html">Full Width</a></li>
+                                        <li><a href="{{route('search')}}">With Sidebar</a></li>
+                                        <li>
+                                            <form action="{{route('search')}}" method="get">
+                                                <input type="hidden" name="view" value="map">
+                                                <button type="submit">With Map</button>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            <form action="{{route('search')}}" method="get">
+                                                <input type="hidden" name="view" value="full">
+                                                <button type="submit">Full Width</button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li><a href="#">Grid Layout</a>

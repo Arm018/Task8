@@ -13,10 +13,10 @@
             <div class="col-md-4 col-sm-6 ">
                 <h4>Helpful Links</h4>
                 <ul class="footer-links">
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Sign Up</a></li>
-                    <li><a href="#">My Account</a></li>
-                    <li><a href="#">Add Property</a></li>
+                    <li><a href="{{route('my-profile')}}">Login</a></li>
+                    <li><a href="{{route('my-profile')}}">Sign Up</a></li>
+                    <li><a href="{{route('my-profile')}}">My Account</a></li>
+                    <li><a href="{{route('property.create')}}">Add Property</a></li>
                     <li><a href="#">Pricing</a></li>
                     <li><a href="#">Privacy Policy</a></li>
                 </ul>
