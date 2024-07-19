@@ -15,8 +15,8 @@ return new class extends Migration
                 $table->id();
                 $table->unsignedBigInteger('user_id');
                 $table->string('title');
-                $table->enum('status', ['For Sale', 'For Rent']);
-                $table->string('type');
+                $table->integer('status');
+                $table->integer('type');
                 $table->decimal('price', 10, 2);
                 $table->integer('area');
                 $table->integer('rooms');
@@ -24,7 +24,10 @@ return new class extends Migration
                 $table->string('city');
                 $table->string('state');
                 $table->string('zip_code');
+                $table->date('expiration_date');
                 $table->timestamps();
+
+                $table->foreign('user_id')->references('id')->on('users');
             });
     }
 

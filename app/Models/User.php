@@ -44,10 +44,16 @@ class User extends Authenticatable
 
     public function userInfo()
     {
-        return $this->hasOne(UserInfo::class,'user_id','id');
+        return $this->hasOne(UserInfo::class, 'user_id', 'id');
     }
+
     public function properties()
     {
-        return $this->hasMany(Property::class,'user_id','id');
+        return $this->hasMany(Property::class, 'user_id', 'id');
+    }
+
+    public function socialLinks()
+    {
+        return $this->hasOne(Social::class, 'user_id', 'id');
     }
 }

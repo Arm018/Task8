@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
 use App\Models\Property;
+use App\Models\Social;
+use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +17,8 @@ class ProfileController extends Controller
     public function index()
     {
         $properties = Property::query()->where('user_id', Auth::id())->get();
-        return view('profile.my-profile', compact('properties'));
+        $user = User::query()->where('id', Auth::id())->with('socialLinks')->with('userInfo')->get()->first();
+        return view('profile.my-profile', compact('properties','user'));
     }
 
     public function profilePassword()
@@ -51,14 +54,13 @@ class ProfileController extends Controller
         $user->save();
 
         $userInfo = $user->userInfo ?? new UserInfo;
+        $userInfo->fill($request->only(['title', 'phone', 'about']));
 
-        $userInfo->phone = $request->phone;
-        $userInfo->about = $request->about;
-        $userInfo->title = $request->title;
-        $userInfo->twitter = $request->twitter;
-        $userInfo->facebook = $request->facebook;
-        $userInfo->google_plus = $request->google_plus;
-        $userInfo->linkedin = $request->linkedin;
+        $socialLinks = $user->socialLinks ?? new Social;
+        $socialLinks->fill($request->only(['twitter', 'facebook', 'google_plus', 'linkedin']));
+        $socialLinks->user_id = $user->id;
+        $socialLinks->save();
+
 
         if ($request->hasFile('profile_photo')) {
             if ($userInfo->image) {

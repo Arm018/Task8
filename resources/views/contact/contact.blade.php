@@ -82,7 +82,7 @@
                             </ul>
                         </div>
                     @endif
-                    <form method="post" action="{{route('contactUs.store')}}">
+                    <form method="post" action="{{route('contact.store')}}">
                         @csrf
                         <div class="row">
                             <div class="col-md-6">

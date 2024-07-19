@@ -276,11 +276,11 @@
 
                             <div class="listing-badges">
                                 <span class="featured">Featured</span>
-                                <span>{{$property->status}}</span>
+                                <span>{{$property->getStatusName()}}</span>
                             </div>
 
                             <div class="listing-img-content">
-                                @if($property->status == 'For Sale')
+                                @if($property->getStatusName() == 'For Sale')
                                     <span class="listing-price">${{$property->price}} <i>${{intval($property->price / $property->area)}} / sq ft</i></span>
                                 @else
                                     <span class="listing-price">${{$property->price}} <i>monthly</i></span>

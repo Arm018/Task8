@@ -105,7 +105,7 @@
                                 <div class="home-slider-container">
                                     <div class="home-slider-desc">
                                         <div class="home-slider-price">
-                                            ${{ $property->price }} @if ($property->status == 'For Rent')
+                                            ${{ $property->price }} @if ($property->getStatusName() == 'For Rent')
                                                 <i>/ monthly</i>
                                             @endif
                                         </div>
@@ -151,7 +151,7 @@
 
                                     <div class="listing-badges">
                                         <span class="featured">Featured</span>
-                                        <span>{{$property->status}}</span>
+                                        <span>{{$property->getStatusName()}}</span>
                                     </div>
 
                                     <div class="listing-img-content">

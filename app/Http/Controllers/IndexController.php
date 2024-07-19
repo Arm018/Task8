@@ -24,6 +24,7 @@ class IndexController extends Controller
         $properties = Property::query()->with('user')->with('details')->with('images')->orderByDesc('created_at')->take(5)->get();
         return view('home.welcome3', compact('properties'));
     }
+
     public function index4()
     {
         $properties = Property::query()->with('user')->with('details')->with('images')->orderByDesc('created_at')->take(5)->get();

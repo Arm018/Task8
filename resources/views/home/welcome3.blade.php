@@ -336,7 +336,7 @@
 
                                     <div class="listing-badges">
                                         <span class="featured">Featured</span>
-                                        <span>{{$property->status}}</span>
+                                        <span>{{$property->getStatusName()}}</span>
                                     </div>
 
                                     <div class="listing-img-content">

@@ -32,7 +32,7 @@ class OrderController extends Controller
         }
 
         $filteredProperties = $query->paginate(6);
-        $view = $request->input('view','list');
+        $view = $request->input('view', 'list');
         switch ($view) {
             case 'full':
                 return view('listing.listing_list_full', compact('filteredProperties'));

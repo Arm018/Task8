@@ -23,6 +23,9 @@ class ProfileRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
+            'title' => 'nullable|string',
+            'phone' => 'nullable|integer',
+            'about' => 'nullable|string',
             'twitter' => 'nullable|url',
             'facebook' => 'nullable|url',
             'google_plus' => 'nullable|url',

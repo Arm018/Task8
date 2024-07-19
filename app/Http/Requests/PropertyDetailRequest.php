@@ -26,29 +26,9 @@ class PropertyDetailRequest extends FormRequest
             'building_age' => 'nullable|in:0 - 1 Years,0 - 5 Years,0 - 10 Years,0 - 20 Years,0 - 50 Years,50 + Years',
             'bedrooms' => 'nullable|integer|min:0',
             'bathrooms' => 'nullable|integer|min:0',
-            'air_conditioning' => 'nullable|boolean',
-            'swimming_pool' => 'nullable|boolean',
-            'central_heating' => 'nullable|boolean',
-            'laundry_room' => 'nullable|boolean',
-            'gym' => 'nullable|boolean',
-            'alarm' => 'nullable|boolean',
-            'window_covering' => 'nullable|boolean',
             'contact_name' => 'nullable|string|max:255',
             'contact_email' => 'nullable|email|max:255',
             'contact_phone' => 'nullable|string|max:20',
         ];
-    }
-
-    public function validated($key = null, $default = null)
-    {
-        $validated = parent::validated();
-        $checkboxFields = ['air_conditioning', 'swimming_pool', 'central_heating', 'laundry_room', 'gym', 'alarm', 'window_covering'];
-        foreach ($checkboxFields as $field) {
-            if (!isset($validated[$field])) {
-                $validated[$field] = '0';
-            }
-        }
-
-        return $validated;
     }
 }

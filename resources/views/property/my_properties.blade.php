@@ -59,7 +59,7 @@
                                 @endif
                             </div>
                         </td>
-                        <td class="expire-date" style="font-size: 16px">{{$property->timeFormat($property)}}</td>
+                        <td class="expire-date" style="font-size: 16px">{{$property->expiration_date}}</td>
                         <td class="action">
                             <a href="{{route('property.edit', $property->id)}}"><i class="fa fa-pencil"></i> Edit</a>
                             <a href="#"><i class="fa  fa-eye-slash"></i> Hide</a>

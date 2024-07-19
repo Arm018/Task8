@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ListingController;
@@ -36,8 +37,8 @@ Route::get('order', [OrderController::class, 'order'])->name('order');
 Route::middleware('auth')->group(function () {
 
 
-    Route::get('contactUs', [ContactUsController::class, 'index'])->name('contactUs');
-    Route::post('contactUs', [ContactUsController::class, 'store'])->name('contactUs.store');
+    Route::get('contacts', [ContactController::class, 'index'])->name('contact');
+    Route::post('contacts', [ContactController::class, 'store'])->name('contact.store');
 
     Route::prefix('my-profile')->group(function () {
         Route::get('/', [ProfileController::class, 'index'])->name('my-profile');

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
-use App\Models\ContactUs;
-use Illuminate\Http\Request;
+use App\Models\Contact;
 
-class ContactUsController extends Controller
+
+class ContactController extends Controller
 {
     public function index()
     {
@@ -15,7 +15,7 @@ class ContactUsController extends Controller
 
     public function store(ContactRequest $request)
     {
-        $contact = new ContactUs();
+        $contact = new Contact();
         $contact->fill($request->validated());
         $contact->save();
         return back()->with('success', 'Your Message has been sent successfully');

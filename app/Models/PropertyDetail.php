@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PropertyDetail extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'property_id',
         'description',
         'building_age',
         'bedrooms',
@@ -25,8 +25,9 @@ class PropertyDetail extends Model
         'contact_email',
         'contact_phone',
     ];
+
     public function property()
     {
-        return $this->belongsTo(Property::class,'property_id','id');
+        return $this->belongsTo(Property::class, 'property_id', 'id');
     }
 }

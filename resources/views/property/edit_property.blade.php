@@ -40,9 +40,10 @@
                                 <div class="col-md-6">
                                     <h5>Status</h5>
                                     <select class="chosen-select-no-single" name="status">
-                                        <option value="">Select Status</option>
-                                        <option value="For Sale" {{ old('status', $property->status) == 'For Sale' ? 'selected' : '' }}>For Sale</option>
-                                        <option value="For Rent" {{ old('status', $property->status) == 'For Rent' ? 'selected' : '' }}>For Rent</option>
+                                        <option value="" disabled>Select Status</option>
+                                        @foreach(\App\Models\Property::STATUSES as $key => $value)
+                                            <option value="{{ $key }}" {{ old('status') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
                                     </select>
                                     @error('status')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -51,12 +52,10 @@
                                 <div class="col-md-6">
                                     <h5>Type</h5>
                                     <select name="type" class="chosen-select-no-single">
-                                        <option value="">Select Type</option>
-                                        <option value="Apartment" {{ old('type', $property->type) == 'Apartment' ? 'selected' : '' }}>Apartment</option>
-                                        <option value="House" {{ old('type', $property->type) == 'House' ? 'selected' : '' }}>House</option>
-                                        <option value="Commercial" {{ old('type', $property->type) == 'Commercial' ? 'selected' : '' }}>Commercial</option>
-                                        <option value="Garage" {{ old('type', $property->type) == 'Garage' ? 'selected' : '' }}>Garage</option>
-                                        <option value="Lot" {{ old('type', $property->type) == 'Lot' ? 'selected' : '' }}>Lot</option>
+                                        <option value="" disabled>Select Type</option>
+                                        @foreach(\App\Models\Property::TYPES as $key => $value)
+                                            <option value="{{ $key }}" {{ old('type') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                        @endforeach
                                     </select>
                                     @error('type')
                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -145,6 +144,14 @@
                                 </div>
                             </div>
 
+                            <h3>Expiration Date</h3>
+                            <div class="submit-section">
+                                <input type="date" name="expiration_date"
+                                       value="{{ old('expiration_date', \Carbon\Carbon::parse($property->expiration_date)->format('Y-m-d')) }}"/>
+                                @error('expiration_date')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
                             <!-- Detailed Information -->
 
                             <h3>Detailed Information</h3>
@@ -207,30 +214,14 @@
                             <h3>Other Features</h3>
                             <div class="submit-section">
                                 <div class="checkboxes in-row margin-bottom-20">
-                                    <input id="check-air-conditioning" type="checkbox" name="air_conditioning" value="1" {{ $property->details->air_conditioning == '1' ? 'checked' : '' }}>
-                                    <label for="check-air-conditioning">Air Conditioning</label>
-
-                                    <input id="check-swimming-pool" type="checkbox" name="swimming_pool" value="1" {{ $property->details->swimming_pool == '1' ? 'checked' : '' }}>
-                                    <label for="check-swimming-pool">Swimming Pool</label>
-
-                                    <input id="check-central-heating" type="checkbox" name="central_heating" value="1" {{ $property->details->central_heating == '1' ? 'checked' : '' }}>
-                                    <label for="check-central-heating">Central Heating</label>
-
-                                    <input id="check-laundry-room" type="checkbox" name="laundry_room" value="1" {{ $property->details->laundry_room == '1' ? 'checked' : '' }}>
-                                    <label for="check-laundry-room">Laundry Room</label>
-
-                                    <input id="check-gym" type="checkbox" name="gym" value="1" {{ $property->details->gym == '1' ? 'checked' : '' }} >
-                                    <label for="check-gym">Gym</label>
-
-                                    <input id="check-alarm" type="checkbox" name="alarm" value="1" {{ $property->details->alarm == '1' ? 'checked' : '' }}>
-                                    <label for="check-alarm">Alarm</label>
-
-                                    <input id="check-window-covering" type="checkbox" name="window_covering" value="1" {{ $property->details->window_covering == '1' ? 'checked' : '' }}>
-                                    <label for="check-window-covering">Window Covering</label>
+                                    @foreach($features as $feature)
+                                        <input id="check-{{ $feature->name }}" type="checkbox" name="features[]" value="{{ $feature->id }}"
+                                            {{ $property->features->contains($feature->id) ? 'checked' : '' }}>
+                                        <label for="check-{{ $feature->name }}">{{ ucfirst(str_replace('_', ' ', $feature->name)) }}</label>
+                                    @endforeach
                                 </div>
-
-
                             </div>
+
 
                             <!-- Contact Details -->
                             <h3>Contact Details</h3>

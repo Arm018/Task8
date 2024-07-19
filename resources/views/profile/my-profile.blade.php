@@ -48,14 +48,14 @@
                                 <div class="form-group">
                                     <label for="name">Your Name</label>
                                     <input id="name" name="name"
-                                           value="{{\Illuminate\Support\Facades\Auth::user()->name}}" type="text"
+                                           value="{{$user->name}}" type="text"
                                            class="form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="title">Your Title</label>
                                     <input id="title" name="title"
-                                           @if(\Illuminate\Support\Facades\Auth::user()->userInfo && \Illuminate\Support\Facades\Auth::user()->userInfo->title) value="{{\Illuminate\Support\Facades\Auth::user()->userInfo->title}}"
+                                           @if($user->userInfo && $user->userInfo->title) value="{{$user->userInfo->title}}"
                                            @else placeholder="Agent In New York"
                                            @endif type="text" class="form-control">
                                 </div>
@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                     <label for="phone">Phone</label>
                                     <input id="phone" name="phone"
-                                           @if(\Illuminate\Support\Facades\Auth::user()->userInfo && \Illuminate\Support\Facades\Auth::user()->userInfo->phone) value="{{\Illuminate\Support\Facades\Auth::user()->userInfo->phone}}"
+                                           @if($user->userInfo && $user->userInfo->phone) value="{{$user->userInfo->phone}}"
                                            @else placeholder="123-456-789"
                                            @endif type="text"
                                            class="form-control">
@@ -72,16 +72,16 @@
                                 <div class="form-group">
                                     <label for="email">Email</label>
                                     <input id="email" name="email"
-                                           value="{{\Illuminate\Support\Facades\Auth::user()->email}}" type="email"
+                                           value="{{$user->email}}" type="email"
                                            disabled
                                            class="form-control">
                                 </div>
 
                                 <h4 class="mt-5 mb-2">About Me</h4>
                                 <div class="form-group">
-                                    @if(\Illuminate\Support\Facades\Auth::user()->userInfo && \Illuminate\Support\Facades\Auth::user()->userInfo->about)
+                                    @if($user->userInfo && $user->userInfo->about)
                                         <textarea name="about" id="about" style="font-size: 16px" cols="30" rows="10"
-                                                  class="form-control p-4">{{\Illuminate\Support\Facades\Auth::user()->userInfo->about}}</textarea>
+                                                  class="form-control p-4">{{$user->userInfo->about}}</textarea>
                                     @else
                                         <textarea name="about" id="about" style="font-size: 16px" cols="30" rows="10"
                                                   placeholder="Developer In Munich" class="form-control p-4"></textarea>
@@ -93,28 +93,26 @@
                                 <h4 class="mt-5 mb-0">Social</h4>
 
                                 <div class="form-group">
+
                                     <label for="twitter"><i class="fa fa-twitter"></i> Twitter</label>
-                                    <input id="twitter" name="twitter" value="https://www.twitter.com/" type="text"
-                                           class="form-control">
+                                    <input id="twitter" name="twitter" value="{{ old('twitter', $user->socialLinks->twitter ?? '') }}" type="text" class="form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="facebook"><i class="fa fa-facebook-square"></i> Facebook</label>
-                                    <input id="facebook" name="facebook" value="https://www.facebook.com/" type="text"
-                                           class="form-control">
+                                    <input id="facebook" name="facebook" value="{{ old('facebook', $user->socialLinks->facebook ?? '') }}" type="text" class="form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="google_plus"><i class="fa fa-google-plus"></i> Google+</label>
-                                    <input id="google_plus" name="google_plus" value="https://www.google.com/"
-                                           type="text" class="form-control">
+                                    <input id="google_plus" name="google_plus" value="{{ old('google_plus', $user->socialLinks->google_plus ?? '') }}" type="text" class="form-control">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="linkedin"><i class="fa fa-linkedin"></i> Linkedin</label>
-                                    <input id="linkedin" name="linkedin" value="https://www.linkedin.com/" type="text"
-                                           class="form-control">
+                                    <input id="linkedin" name="linkedin" value="{{ old('linkedin', $user->socialLinks->linkedin ?? '') }}" type="text" class="form-control">
                                 </div>
+
 
                                 <button type="submit" class="button margin-top-20 margin-bottom-20">Save Changes
                                 </button>
@@ -122,8 +120,8 @@
                             <div class="col-md-4">
                                 <div class="edit-profile-photo">
                                     <img id="profile-image"
-                                         @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->userInfo && \Illuminate\Support\Facades\Auth::user()->userInfo->image)
-                                             src="{{ \Illuminate\Support\Facades\Storage::url(\Illuminate\Support\Facades\Auth::user()->userInfo->image) }}"
+                                         @if(\Illuminate\Support\Facades\Auth::check() && $user->userInfo && $user->userInfo->image)
+                                             src="{{ \Illuminate\Support\Facades\Storage::url($user->userInfo->image) }}"
                                          @else
                                              src="{{ asset('/images/agent-avatar.jpg') }}"
                                          @endif class="img-fluid"

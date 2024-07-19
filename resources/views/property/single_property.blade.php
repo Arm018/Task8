@@ -12,7 +12,7 @@
                 <div class="col-md-12">
                     <a href="/" class="back-to-listings"></a>
                     <div class="property-title">
-                        <h2>{{$property->title}} <span class="property-badge">{{$property->status}}</span></h2>
+                        <h2>{{$property->title}} <span class="property-badge">{{$property->getStatusName()}}</span></h2>
                         <span>
 						<a href="#location" class="listing-address">
 							<i class="fa fa-map-marker"></i>
@@ -102,28 +102,9 @@
                     <!-- Features -->
                     <h3 class="desc-headline">Features</h3>
                     <ul class="property-features checkboxes margin-top-0">
-                        @if($property->details->air_conditioning == '1')
-                            <li>Air Conditioning</li>
-                        @endif
-                        @if($property->details->swimming_pool == '1')
-                            <li>Swimming Pool</li>
-                        @endif
-                        @if($property->details->central_heating == '1')
-                            <li>Central Heating</li>
-                        @endif
-                        @if($property->details->central_heating == '1')
-                            <li>Laundry Room</li>
-                        @endif
-                        @if($property->details->gym == '1')
-                            <li>Gym</li>
-                        @endif
-                        @if($property->details->alarm == '1')
-                            <li>Alarm</li>
-                        @endif
-                        @if($property->details->window_covering == '1')
-                            <li>Window Covering</li>
-                        @endif
-                            <li>Internet</li>
+                        @foreach($property->features as $feature)
+                            <li>{{ ucfirst(str_replace('_', ' ', $feature->name)) }}</li>
+                        @endforeach
                     </ul>
 
 

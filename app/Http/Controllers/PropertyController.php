@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PropertyDetailRequest;
 use App\Http\Requests\PropertyRequest;
+use App\Models\Feature;
 use App\Models\Property;
 use App\Models\PropertyDetail;
 use App\Models\PropertyImage;
@@ -22,18 +23,25 @@ class PropertyController extends Controller
 
     public function create()
     {
-        return view('property.submit_property');
+        $features = Feature::all();
+        return view('property.submit_property', compact('features'));
     }
 
-    public function store(PropertyRequest $propertyRequest, PropertyDetailRequest $detailRequest)
+    public function store(PropertyRequest $propertyRequest, PropertyDetailRequest $detailRequest, Property $property, PropertyDetail $propertyDetails)
     {
-        $property = new Property();
-        $property->fill(array_merge(['user_id' => auth()->id()], $propertyRequest->validated()));
+
+        $property->user_id = Auth::id();
+        $property->fill($propertyRequest->validated());
         $property->save();
 
-        $propertyDetails = new PropertyDetail();
-        $propertyDetails->fill(array_merge(['property_id' => $property->id], $detailRequest->validated()));
+        $propertyDetails->property_id = $property->id;
+        $propertyDetails->fill($detailRequest->validated());
         $propertyDetails->save();
+
+
+        if ($propertyRequest->has('features')) {
+            $property->features()->attach($propertyRequest->input('features'));
+        }
 
         $this->handleImages($property->id, $propertyRequest);
 
@@ -42,14 +50,15 @@ class PropertyController extends Controller
 
     public function show($id)
     {
-        $property = Property::with(['details', 'images', 'user'])->findOrFail($id);
+        $property = Property::with(['details', 'images', 'user', 'features'])->findOrFail($id);
         return view('property.single_property', compact('property'));
     }
 
     public function edit($id)
     {
-        $property = Property::findOrFail($id);
-        return view('property.edit_property', compact('property'));
+        $property = Property::with('features')->findOrFail($id);
+        $features = Feature::all();
+        return view('property.edit_property', compact('property', 'features'));
     }
 
     public function update($id, PropertyRequest $propertyRequest, PropertyDetailRequest $detailRequest)
@@ -61,6 +70,8 @@ class PropertyController extends Controller
         $propertyDetails = PropertyDetail::where('property_id', $property->id)->first() ?? new PropertyDetail();
         $propertyDetails->fill(array_merge(['property_id' => $property->id], $detailRequest->validated()));
         $propertyDetails->save();
+
+        $property->features()->sync($propertyRequest->input('features'));
 
         $this->handleImages($property->id, $propertyRequest);
 
