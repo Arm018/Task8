@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <style>
-        ul{
+        ul {
             font-size: 16px;
         }
     </style>
@@ -17,7 +17,7 @@
 						<a href="#location" class="listing-address">
 							<i class="fa fa-map-marker"></i>
                             {{$property->zip_code}}
-							{{$property->address}}
+                            {{$property->address}}
                             {{$property->city}},
                             {{$property->state}}
 						</a>
@@ -44,7 +44,9 @@
                 <!-- Slider -->
                 <div class="property-slider default">
                     @foreach($property->images as $image)
-                    <a href="{{\Illuminate\Support\Facades\Storage::url($image->image)}}" data-background-image="{{\Illuminate\Support\Facades\Storage::url($image->image)}}" class="item mfp-gallery"></a>
+                        <a href="{{\Illuminate\Support\Facades\Storage::url($image->image)}}"
+                           data-background-image="{{\Illuminate\Support\Facades\Storage::url($image->image)}}"
+                           class="item mfp-gallery"></a>
                     @endforeach
 
                 </div>
@@ -52,7 +54,8 @@
                 <!-- Slider Thumbs -->
                 <div class="property-slider-nav">
                     @foreach($property->images as $image)
-                    <div class="item"><img src="{{\Illuminate\Support\Facades\Storage::url($image->image)}}" width="200" height="150"></div>
+                        <div class="item"><img src="{{\Illuminate\Support\Facades\Storage::url($image->image)}}"
+                                               width="200" height="150"></div>
 
                     @endforeach
                 </div>
@@ -69,7 +72,7 @@
                 <div class="property-description">
 
                     <!-- Main Features -->
-{{--                    {{dd($property->details)}}--}}
+                    {{--                    {{dd($property->details)}}--}}
                     <ul class="property-main-features">
                         <li>Area <span>{{$property->area}}</span></li>
                         <li>Rooms <span>{{$property->rooms}}</span></li>
@@ -81,7 +84,7 @@
                     <!-- Description -->
                     <h3 class="desc-headline">Description</h3>
                     <div class="show-more">
-                       <p>{{$property->details->description}}</p>
+                        <p>{{$property->details->description}}</p>
 
                         <a href="#" class="show-more-button">Show More <i class="fa fa-angle-down"></i></a>
                     </div>
@@ -114,12 +117,14 @@
                     <div class="style-1 fp-accordion">
                         <div class="accordion">
 
-                            <h3>First Floor <span>{{$property->area}} sq ft</span> <i class="fa fa-angle-down"></i> </h3>
+                            <h3>First Floor <span>{{$property->area}} sq ft</span> <i class="fa fa-angle-down"></i></h3>
                             <div>
                                 <a class="floor-pic mfp-image" href="https://i.imgur.com/kChy7IU.jpg">
                                     <img src="https://i.imgur.com/kChy7IU.jpg" alt="">
                                 </a>
-                                <p>Mauris mauris ante, blandit et, ultrices a, susceros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate aliquam egestas litora torquent conubia.</p>
+                                <p>Mauris mauris ante, blandit et, ultrices a, susceros. Nam mi. Proin viverra leo ut
+                                    odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate aliquam
+                                    egestas litora torquent conubia.</p>
                             </div>
 
                             <h3>Second Floor <span>440 sq ft</span> <i class="fa fa-angle-down"></i></h3>
@@ -127,7 +132,10 @@
                                 <a class="floor-pic mfp-image" href="https://i.imgur.com/l2VNlwu.jpg">
                                     <img src="https://i.imgur.com/l2VNlwu.jpg" alt="">
                                 </a>
-                                <p>Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet purus vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor velit, faucibus interdum tellus libero ac justo. Vivamus non quam. Nullam laoreet, velit ut taciti sociosqu condimentum feugiat.</p>
+                                <p>Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet purus vivamus
+                                    hendrerit, dolor at aliquet laoreet, mauris turpis porttitor velit, faucibus
+                                    interdum tellus libero ac justo. Vivamus non quam. Nullam laoreet, velit ut taciti
+                                    sociosqu condimentum feugiat.</p>
                             </div>
 
                             <h3>Garage <span>140 sq ft</span> <i class="fa fa-angle-down"></i></h3>
@@ -144,7 +152,9 @@
                     <!-- Video -->
                     <h3 class="desc-headline no-border">Video</h3>
                     <div class="responsive-iframe">
-                        <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/UPBJKppEXoQ?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+                        <iframe width="560" height="315"
+                                src="https://www.youtube-nocookie.com/embed/UPBJKppEXoQ?rel=0&amp;showinfo=0"
+                                frameborder="0" allowfullscreen></iframe>
                     </div>
 
 
@@ -186,7 +196,8 @@
 
                                 <div class="listing-title">
                                     <h4><a href="#">Meridian Villas</a></h4>
-                                    <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
+                                    <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom"
+                                       class="listing-address popup-gmaps">
                                         <i class="fa fa-map-marker"></i>
                                         778 Country St. Panama City, FL
                                     </a>
@@ -235,7 +246,8 @@
 
                                 <div class="listing-title">
                                     <h4><a href="#">Selway Apartments</a></h4>
-                                    <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
+                                    <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom"
+                                       class="listing-address popup-gmaps">
                                         <i class="fa fa-map-marker"></i>
                                         33 William St. Northbrook, IL
                                     </a>
@@ -282,7 +294,8 @@
 
                                 <div class="listing-title">
                                     <h4><a href="#">Oak Tree Villas</a></h4>
-                                    <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
+                                    <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom"
+                                       class="listing-address popup-gmaps">
                                         <i class="fa fa-map-marker"></i>
                                         71 Lower River Dr. Bronx, NY
                                     </a>
@@ -322,9 +335,13 @@
 
                     <!-- Widget -->
                     <div class="widget margin-bottom-30">
-                        <button class="widget-button with-tip" data-tip-content="Print"><i class="sl sl-icon-printer"></i></button>
-                        <button class="widget-button with-tip" data-tip-content="Add to Bookmarks"><i class="fa fa-star-o"></i></button>
-                        <button class="widget-button with-tip compare-widget-button" data-tip-content="Add to Compare"><i class="icon-compare"></i></button>
+                        <button class="widget-button with-tip" data-tip-content="Print"><i
+                                class="sl sl-icon-printer"></i></button>
+                        <button class="widget-button with-tip bookmark-toggle {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'bookmarked' : '' }}" data-tip-content="Add to Bookmarks" data-property-id="{{ $property->id }}">
+                            <i class="fa {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'fa-star' : 'fa-star-o' }}"></i>
+                        </button>
+                        <button class="widget-button with-tip compare-widget-button" data-tip-content="Add to Compare">
+                            <i class="icon-compare"></i></button>
                         <div class="clearfix"></div>
                     </div>
                     <!-- Widget / End -->
@@ -433,7 +450,9 @@
                         <!-- Agent Widget -->
                         <div class="agent-widget">
                             <div class="agent-title">
-                                <div class="agent-photo"><img src="{{\Illuminate\Support\Facades\Storage::url($property->user->userInfo->image)}}" width="140" height="70" alt="" /></div>
+                                <div class="agent-photo"><img
+                                        src="{{\Illuminate\Support\Facades\Storage::url($property->user->userInfo->image)}}"
+                                        width="140" height="70" alt=""/></div>
                                 <div class="agent-details">
                                     <h4><a href="#">{{$property->details->contact_name}}</a></h4>
                                     <span><i class="sl sl-icon-call-in"></i>{{$property->details->contact_phone}}</span>
@@ -441,7 +460,8 @@
                                 <div class="clearfix"></div>
                             </div>
 
-                            <input type="text" placeholder="Your Email" pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$">
+                            <input type="text" placeholder="Your Email"
+                                   pattern="^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})$">
                             <input type="text" placeholder="Your Phone">
                             <textarea>I'm interested in this property [ID 123456] and I'd like to know more details.</textarea>
                             <button class="button fullwidth margin-top-5">Send Message</button>
@@ -457,7 +477,8 @@
                         <h3 class="margin-bottom-30 margin-top-30">Mortgage Calculator</h3>
 
                         <!-- Mortgage Calculator -->
-                        <form action="javascript:void(0);" autocomplete="off" class="mortgageCalc" data-calc-currency="USD">
+                        <form action="javascript:void(0);" autocomplete="off" class="mortgageCalc"
+                              data-calc-currency="USD">
                             <div class="calc-input">
                                 <div class="pick-price tip" data-tip-content="Set This Property Price"></div>
                                 <input type="text" id="amount" name="amount" placeholder="Sale Price" required>
@@ -480,7 +501,10 @@
                             </div>
 
                             <button class="button calc-button" formvalidate>Calculate</button>
-                            <div class="calc-output-container"><div class="notification success">Monthly Payment: <strong class="calc-output"></strong></div></div>
+                            <div class="calc-output-container">
+                                <div class="notification success">Monthly Payment: <strong class="calc-output"></strong>
+                                </div>
+                            </div>
                         </form>
                         <!-- Mortgage Calculator / End -->
 
@@ -608,13 +632,13 @@
     <script src="/scripts/daterangepicker.js"></script>
     <script>
         // Calendar Init
-        $(function() {
+        $(function () {
             $('#date-picker').daterangepicker({
                 "opens": "left",
                 singleDatePicker: true,
 
                 // Disabling Date Ranges
-                isInvalidDate: function(date) {
+                isInvalidDate: function (date) {
                     // Disabling Date Range
                     var disabled_start = moment('09/02/2018', 'MM/DD/YYYY');
                     var disabled_end = moment('09/06/2018', 'MM/DD/YYYY');
@@ -629,14 +653,14 @@
         });
 
         // Calendar animation
-        $('#date-picker').on('showCalendar.daterangepicker', function(ev, picker) {
+        $('#date-picker').on('showCalendar.daterangepicker', function (ev, picker) {
             $('.daterangepicker').addClass('calendar-animated');
         });
-        $('#date-picker').on('show.daterangepicker', function(ev, picker) {
+        $('#date-picker').on('show.daterangepicker', function (ev, picker) {
             $('.daterangepicker').addClass('calendar-visible');
             $('.daterangepicker').removeClass('calendar-hidden');
         });
-        $('#date-picker').on('hide.daterangepicker', function(ev, picker) {
+        $('#date-picker').on('hide.daterangepicker', function (ev, picker) {
             $('.daterangepicker').removeClass('calendar-visible');
             $('.daterangepicker').addClass('calendar-hidden');
         });
@@ -645,14 +669,40 @@
 
     <!-- Replacing dropdown placeholder with selected time slot -->
     <script>
-        $(".time-slot").each(function() {
+        $(".time-slot").each(function () {
             var timeSlot = $(this);
-            $(this).find('input').on('change',function() {
+            $(this).find('input').on('change', function () {
                 var timeSlotVal = timeSlot.find('strong').text();
 
                 $('.panel-dropdown.time-slots-dropdown a').html(timeSlotVal);
                 $('.panel-dropdown').removeClass('active');
             });
         });
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.widget-button.bookmark-toggle').forEach(span => {
+                span.addEventListener('click', function() {
+                    const propertyId = this.getAttribute('data-property-id');
+                    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                    fetch('/bookmark/toggle', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': token
+                        },
+                        body: JSON.stringify({ property_id: propertyId })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message);
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+
+
+
     </script>
+
 @endsection

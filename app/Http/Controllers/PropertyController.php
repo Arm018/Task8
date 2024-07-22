@@ -8,6 +8,7 @@ use App\Models\Feature;
 use App\Models\Property;
 use App\Models\PropertyDetail;
 use App\Models\PropertyImage;
+use App\Services\PropertyService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,13 @@ use Illuminate\Support\Facades\Storage;
 
 class PropertyController extends Controller
 {
+    protected $propertyService;
+
+    public function __construct(PropertyService $propertyService)
+    {
+        $this->propertyService = $propertyService;
+    }
+
     public function index()
     {
         $properties = Auth::user()->properties;
@@ -29,22 +37,7 @@ class PropertyController extends Controller
 
     public function store(PropertyRequest $propertyRequest, PropertyDetailRequest $detailRequest, Property $property, PropertyDetail $propertyDetails)
     {
-
-        $property->user_id = Auth::id();
-        $property->fill($propertyRequest->validated());
-        $property->save();
-
-        $propertyDetails->property_id = $property->id;
-        $propertyDetails->fill($detailRequest->validated());
-        $propertyDetails->save();
-
-
-        if ($propertyRequest->has('features')) {
-            $property->features()->attach($propertyRequest->input('features'));
-        }
-
-        $this->handleImages($property->id, $propertyRequest);
-
+        $this->propertyService->createProperty($propertyRequest, $detailRequest, $property, $propertyDetails);
         return redirect()->route('property.index')->with('success', 'Property created successfully');
     }
 
@@ -63,40 +56,16 @@ class PropertyController extends Controller
 
     public function update($id, PropertyRequest $propertyRequest, PropertyDetailRequest $detailRequest)
     {
-        $property = Property::findOrFail($id);
-        $property->fill(array_merge(['user_id' => auth()->id()], $propertyRequest->validated()));
-        $property->save();
 
-        $propertyDetails = PropertyDetail::where('property_id', $property->id)->first() ?? new PropertyDetail();
-        $propertyDetails->fill(array_merge(['property_id' => $property->id], $detailRequest->validated()));
-        $propertyDetails->save();
-
-        $property->features()->sync($propertyRequest->input('features'));
-
-        $this->handleImages($property->id, $propertyRequest);
-
+        $this->propertyService->updateProperty($id, $propertyRequest, $detailRequest);
         return redirect()->route('property.index')->with('success', 'Property updated successfully.');
     }
 
     public function destroy($id)
     {
-        $property = Property::findOrFail($id);
-        $property->images()->delete();
-        $property->details()->delete();
-        $property->delete();
+        $this->propertyService->destroyProperty($id);
         return redirect()->route('property.index')->with('success', 'Property deleted successfully');
     }
 
-    private function handleImages(int $propertyId, Request $request)
-    {
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $filePath = $image->store('public/images');
-                $propertyImage = new PropertyImage();
-                $propertyImage->property_id = $propertyId;
-                $propertyImage->image = $filePath;
-                $propertyImage->save();
-            }
-        }
-    }
+
 }

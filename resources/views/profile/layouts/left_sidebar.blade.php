@@ -7,7 +7,7 @@
                 <li class="sub-nav-title">Manage Account</li>
                 <li><a href="{{ route('my-profile') }}" @if (request()->routeIs('my-profile')) class="current" @endif><i
                             class="sl sl-icon-user"></i> My Profile</a></li>
-                <li><a href="my-bookmarks.html"><i class="sl sl-icon-star"></i> Bookmarked Listings</a></li>
+                <li><a href="{{route('favorites')}}"><i class="sl sl-icon-star"></i> Bookmarked Listings</a></li>
             </ul>
 
             <ul class="my-account-nav">

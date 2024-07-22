@@ -176,7 +176,7 @@
                         <ul>
                             <li><a href="{{route('my-profile')}}"><i class="sl sl-icon-user"></i> My Profile</a>
                             </li>
-                            <li><a href="my-bookmarks.html"><i class="sl sl-icon-star"></i> Bookmarks</a></li>
+                            <li><a href="{{route('favorites')}}"><i class="sl sl-icon-star"></i> Bookmarks</a></li>
                             <li><a href="{{route('property.index')}}"><i class="sl sl-icon-docs"></i> My Properties</a>
                             </li>
                             <li>

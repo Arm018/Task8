@@ -94,7 +94,9 @@
 
                                 <div class="listing-img-content">
                                     <span class="listing-price">${{$property->price}} <i>${{intval($property->price / $property->area)}} / sq ft</i></span>
-                                    <span class="like-icon with-tip" data-tip-content="Add to Bookmarks"></span>
+                                    <span class="like-icon bookmark-toggle {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'bookmarked' : '' }}" data-tip-content="Add to Bookmarks" data-property-id="{{ $property->id }}">
+                                            <i class="fa {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'fa-star' : 'fa-star-o' }}"></i>
+                                    </span>
                                     <span class="compare-button with-tip" data-tip-content="Add to Compare"></span>
                                 </div>
 
@@ -392,4 +394,28 @@
     <script type="text/javascript" src="/scripts/infobox.min.js"></script>
     <script type="text/javascript" src="/scripts/markerclusterer.js"></script>
     <script type="text/javascript" src="/scripts/maps.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.like-icon.bookmark-toggle').forEach(span => {
+                span.addEventListener('click', function() {
+                    const propertyId = this.getAttribute('data-property-id');
+                    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                    fetch('/bookmark/toggle', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': token
+                        },
+                        body: JSON.stringify({ property_id: propertyId })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            alert(data.message);
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+    </script>
 @endsection

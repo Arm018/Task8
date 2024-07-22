@@ -5,6 +5,7 @@
     ================================================== -->
     <title>Findeo</title>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <!-- CSS
@@ -134,11 +135,9 @@
                                         <div class="col-md-4">
                                             <select name="type" data-placeholder="Any Type" class="chosen-select-no-single">
                                                 <option value="">Any Type</option>
-                                                <option value="apartment">Apartments</option>
-                                                <option value="house">Houses</option>
-                                                <option value="commercial">Commercial</option>
-                                                <option value="garage">Garages</option>
-                                                <option value="lot">Lots</option>
+                                                @foreach ($propertyTypes as $key => $type)
+                                                    <option value="{{ $key }}">{{ $type }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
 
@@ -315,7 +314,9 @@
                                     @else
                                     <span class="listing-price">${{$property->price}} <i>monthly</i></span>
                                     @endif
-                                    <span class="like-icon with-tip" data-tip-content="Add to Bookmarks"></span>
+                                    <span class="like-icon bookmark-toggle {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'bookmarked' : '' }}" data-tip-content="Add to Bookmarks" data-property-id="{{ $property->id }}">
+                                            <i class="fa {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'fa-star' : 'fa-star-o' }}"></i>
+                                    </span>
                                     <span class="compare-button with-tip" data-tip-content="Add to Compare"></span>
                                 </div>
 
@@ -630,42 +631,46 @@
 
     <!-- Scripts
     ================================================== -->
-    <script type="text/javascript" src="/scripts/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="/scripts/jquery-migrate-3.1.0.min.js"></script>
-    <script type="text/javascript" src="/scripts/chosen.min.js"></script>
-    <script type="text/javascript" src="/scripts/magnific-popup.min.js"></script>
-    <script type="text/javascript" src="/scripts/owl.carousel.min.js"></script>
-    <script type="text/javascript" src="/scripts/rangeSlider.js"></script>
-    <script type="text/javascript" src="/scripts/sticky-kit.min.js"></script>
-    <script type="text/javascript" src="/scripts/slick.min.js"></script>
-    <script type="text/javascript" src="/scripts/masonry.min.js"></script>
-    <script type="text/javascript" src="/scripts/mmenu.min.js"></script>
-    <script type="text/javascript" src="/scripts/tooltips.min.js"></script>
-    <script type="text/javascript" src="/scripts/custom.js"></script>
-
-    <!-- Google Autocomplete -->
-{{--    <script>--}}
-{{--        function initAutocomplete() {--}}
-{{--            var input = document.getElementById('autocomplete-input');--}}
-{{--            var autocomplete = new google.maps.places.Autocomplete(input);--}}
-
-{{--            autocomplete.addListener('place_changed', function() {--}}
-{{--                var place = autocomplete.getPlace();--}}
-{{--                if (!place.geometry) {--}}
-{{--                    window.alert("No details available for input: '" + place.name + "'");--}}
-{{--                    return;--}}
-{{--                }--}}
-{{--            });--}}
-{{--        }--}}
-{{--    </script>--}}
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete"></script>
-
-
-
-
 </div>
 <!-- Wrapper / End -->
+<script type="text/javascript" src="/scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/scripts/jquery-migrate-3.1.0.min.js"></script>
+<script type="text/javascript" src="/scripts/chosen.min.js"></script>
+<script type="text/javascript" src="/scripts/magnific-popup.min.js"></script>
+<script type="text/javascript" src="/scripts/owl.carousel.min.js"></script>
+<script type="text/javascript" src="/scripts/rangeSlider.js"></script>
+<script type="text/javascript" src="/scripts/sticky-kit.min.js"></script>
+<script type="text/javascript" src="/scripts/slick.min.js"></script>
+<script type="text/javascript" src="/scripts/masonry.min.js"></script>
+<script type="text/javascript" src="/scripts/mmenu.min.js"></script>
+<script type="text/javascript" src="/scripts/tooltips.min.js"></script>
+<script type="text/javascript" src="/scripts/custom.js"></script>
 
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.like-icon.bookmark-toggle').forEach(span => {
+            span.addEventListener('click', function() {
+                const propertyId = this.getAttribute('data-property-id');
+                const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                fetch('/bookmark/toggle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': token
+                    },
+                    body: JSON.stringify({ property_id: propertyId })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+    });
+</script>
 
 </body>
 </html>

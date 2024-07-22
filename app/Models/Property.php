@@ -74,5 +74,15 @@ class Property extends Model
         return self::TYPES[$this->type];
     }
 
+    public static function getTypeOptions()
+    {
+        return self::TYPES;
+    }
+
+    public function favorites()
+    {
+        return $this->hasMany(FavoriteProperty::class, 'property_id', 'id');
+    }
+
 
 }
