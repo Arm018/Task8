@@ -28,7 +28,9 @@
         <div class="csm-trigger"></div>
 
         <div class="csm-content">
-            <h4>Compare Properties <div class="csm-mobile-trigger"></div></h4>
+            <h4>Compare Properties
+                <div class="csm-mobile-trigger"></div>
+            </h4>
 
             <div class="csm-properties">
 
@@ -96,7 +98,8 @@
 
     <!-- Banner
     ================================================== -->
-    <div class="parallax" data-background="/images/home-parallax.jpg" data-color="#36383e" data-color-opacity="0.45" data-img-width="2500" data-img-height="1600">
+    <div class="parallax" data-background="/images/home-parallax.jpg" data-color="#36383e" data-color-opacity="0.45"
+         data-img-width="2500" data-img-height="1600">
         <div class="parallax-content">
 
             <div class="container">
@@ -112,7 +115,8 @@
                                 <input type="hidden" name="view" value="list">
                                 <!-- Type -->
                                 <div class="search-type">
-                                    <label class="active"><input class="first-tab" name="tab" checked="checked" type="radio">Any Status</label>
+                                    <label class="active"><input class="first-tab" name="tab" checked="checked"
+                                                                 type="radio">Any Status</label>
                                     <label><input name="tab" type="radio">For Sale</label>
                                     <label><input name="tab" type="radio">For Rent</label>
                                     <div class="search-type-arrow"></div>
@@ -124,7 +128,8 @@
 
                                     <!-- Main Search Input -->
                                     <div class="main-search-input larger-input">
-                                        <input type="text" name="address" class="ico-01" id="autocomplete-input" placeholder="Enter address e.g. street, city and state or zip" value=""/>
+                                        <input type="text" name="address" class="ico-01" id="autocomplete-input"
+                                               placeholder="Enter address e.g. street, city and state or zip" value=""/>
                                         <button class="button">Search</button>
                                     </div>
 
@@ -133,7 +138,8 @@
 
                                         <!-- Property Type -->
                                         <div class="col-md-4">
-                                            <select name="type" data-placeholder="Any Type" class="chosen-select-no-single">
+                                            <select name="type" data-placeholder="Any Type"
+                                                    class="chosen-select-no-single">
                                                 <option value="">Any Type</option>
                                                 @foreach ($propertyTypes as $key => $type)
                                                     <option value="{{ $key }}">{{ $type }}</option>
@@ -147,7 +153,8 @@
 
                                             <!-- Select Input -->
                                             <div class="select-input">
-                                                <input type="number" name="min_price" placeholder="Min Price" data-unit="USD">
+                                                <input type="number" name="min_price" placeholder="Min Price"
+                                                       data-unit="USD">
                                             </div>
                                             <!-- Select Input / End -->
 
@@ -159,7 +166,8 @@
 
                                             <!-- Select Input -->
                                             <div class="select-input">
-                                                <input type="number" name="max_price" placeholder="Max Price" data-unit="USD">
+                                                <input type="number" name="max_price" placeholder="Max Price"
+                                                       data-unit="USD">
                                             </div>
                                             <!-- Select Input / End -->
 
@@ -170,7 +178,8 @@
 
 
                                     <!-- More Search Options -->
-                                    <a href="#" class="more-search-options-trigger" data-open-title="More Options" data-close-title="Less Options"></a>
+                                    <a href="#" class="more-search-options-trigger" data-open-title="More Options"
+                                       data-close-title="Less Options"></a>
 
                                     <div class="more-search-options">
                                         <div class="more-search-options-container">
@@ -183,7 +192,8 @@
 
                                                     <!-- Select Input -->
                                                     <div class="select-input">
-                                                        <input type="number" name="min_area" placeholder="Min Area" data-unit="Sq Ft">
+                                                        <input type="number" name="min_area" placeholder="Min Area"
+                                                               data-unit="Sq Ft">
                                                     </div>
                                                     <!-- Select Input / End -->
 
@@ -194,7 +204,8 @@
 
                                                     <!-- Select Input -->
                                                     <div class="select-input">
-                                                        <input type="number" name="max_area" placeholder="Max Area" data-unit="Sq Ft">
+                                                        <input type="number" name="max_area" placeholder="Max Area"
+                                                               data-unit="Sq Ft">
                                                     </div>
                                                     <!-- Select Input / End -->
 
@@ -209,7 +220,8 @@
 
                                                 <!-- Min Area -->
                                                 <div class="col-md-6">
-                                                    <select name="beds" data-placeholder="Beds" class="chosen-select-no-single">
+                                                    <select name="beds" data-placeholder="Beds"
+                                                            class="chosen-select-no-single">
                                                         <option value="">Beds (Any)</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -221,7 +233,8 @@
 
                                                 <!-- Max Area -->
                                                 <div class="col-md-6">
-                                                    <select name="baths" data-placeholder="Baths" class="chosen-select-no-single">
+                                                    <select name="baths" data-placeholder="Baths"
+                                                            class="chosen-select-no-single">
                                                         <option value="">Baths (Any)</option>
                                                         <option value="1">1</option>
                                                         <option value="2">2</option>
@@ -244,7 +257,7 @@
                                                 <input id="check-3" type="checkbox" name="swimming_pool">
                                                 <label for="check-3">Swimming Pool</label>
 
-                                                <input id="check-4" type="checkbox" name="central_heating" >
+                                                <input id="check-4" type="checkbox" name="central_heating">
                                                 <label for="check-4">Central Heating</label>
 
                                                 <input id="check-5" type="checkbox" name="laundry_room">
@@ -298,69 +311,74 @@
             <div class="col-md-12">
                 <div class="carousel">
                     @foreach($properties as $property)
-                    <div class="carousel-item" style="width: 340px;">
-                        <div class="listing-item">
+                        <div class="carousel-item" style="width: 340px;">
+                            <div class="listing-item">
 
-                            <a href="{{route('single.property',$property->id)}}" class="listing-img-container">
+                                <a href="{{route('single.property',$property->id)}}" class="listing-img-container">
 
-                                <div class="listing-badges">
-                                    <span class="featured">Featured</span>
-                                    <span>{{$property->getStatusName()}}</span>
-                                </div>
-
-                                <div class="listing-img-content">
-                                    @if($property->getStatusName() == 'For Sale')
-                                    <span class="listing-price">${{$property->price}} <i>${{intval($property->price / $property->area)}} / sq ft</i></span>
-                                    @else
-                                    <span class="listing-price">${{$property->price}} <i>monthly</i></span>
-                                    @endif
-                                    <span class="like-icon bookmark-toggle {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'bookmarked' : '' }}" data-tip-content="Add to Bookmarks" data-property-id="{{ $property->id }}">
-                                            <i class="fa {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'fa-star' : 'fa-star-o' }}"></i>
-                                    </span>
-                                    <span class="compare-button with-tip" data-tip-content="Add to Compare"></span>
-                                </div>
-
-                                <div class="listing-carousel">
-                                    @foreach($property->images as $image)
-                                    <div><img src="{{\Illuminate\Support\Facades\Storage::url($image->image)}}" alt="" height="300"></div>
-                                    @endforeach
+                                    <div class="listing-badges">
+                                        <span class="featured">Featured</span>
+                                        <span>{{$property->getStatusName()}}</span>
                                     </div>
 
-                            </a>
+                                    <div class="listing-img-content">
+                                        @if($property->getStatusName() == 'For Sale')
+                                            <span class="listing-price">${{$property->price}} <i>${{intval($property->price / $property->area)}} / sq ft</i></span>
+                                        @else
+                                            <span class="listing-price">${{$property->price}} <i>monthly</i></span>
+                                        @endif
+                                        @if (Auth::check())
+                                                <span class="like-icon bookmark-toggle {{ Auth::user()->favorites->contains('property_id', $property->id) ? 'bookmarked' : '' }}" data-tip-content="Add to Bookmarks" data-property-id="{{ $property->id }}">
+                                                    <i class="fa {{ Auth::user()->favorites->contains('property_id', $property->id) ? 'fa-star' : 'fa-star-o' }}"></i>
+                                                </span>
+                                        @else
+                                                <span class="like-icon with-tip" data-tip-content="Log in to Bookmark"></span>
+                                        @endif
+                                        <span class="compare-button with-tip" data-tip-content="Add to Compare"></span>
+                                    </div>
 
-                            <div class="listing-content">
+                                    <div class="listing-carousel">
+                                        @foreach($property->images as $image)
+                                            <div><img src="{{\Illuminate\Support\Facades\Storage::url($image->image)}}"
+                                                      alt="" height="300"></div>
+                                        @endforeach
+                                    </div>
 
-                                <div class="listing-title">
-                                    <h4><a href="{{route('single.property',$property->id)}}">{{$property->title}}</a></h4>
-                                    <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom" class="listing-address popup-gmaps">
-                                        <i class="fa fa-map-marker"></i>
-                                        {{$property->zip_code}}
-                                        {{$property->address}}
-                                        {{$property->city}},
-                                        {{$property->state}}
-                                    </a>
-                                </div>
+                                </a>
 
-                                <ul class="listing-features">
-                                    <li>Area <span>{{$property->area}} sq ft</span></li>
-                                    <li>Bedrooms <span>{{$property->details->bedrooms}}</span></li>
-                                    <li>Bathrooms <span>{{$property->details->bathrooms}}</span></li>
-                                </ul>
+                                <div class="listing-content">
 
-                                <div class="listing-footer">
-                                    <a href="#"><i class="fa fa-user"></i> {{$property->user->name}}</a>
-                                    <span><i class="fa fa-calendar-o"></i> {{$property->created_at->diffForHumans()}}</span>
+                                    <div class="listing-title">
+                                        <h4>
+                                            <a href="{{route('single.property',$property->id)}}">{{$property->title}}</a>
+                                        </h4>
+                                        <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom"
+                                           class="listing-address popup-gmaps">
+                                            <i class="fa fa-map-marker"></i>
+                                            {{$property->zip_code}}
+                                            {{$property->address}}
+                                            {{$property->city}},
+                                            {{$property->state}}
+                                        </a>
+                                    </div>
+
+                                    <ul class="listing-features">
+                                        <li>Area <span>{{$property->area}} sq ft</span></li>
+                                        <li>Bedrooms <span>{{$property->details->bedrooms}}</span></li>
+                                        <li>Bathrooms <span>{{$property->details->bathrooms}}</span></li>
+                                    </ul>
+
+                                    <div class="listing-footer">
+                                        <a href="#"><i class="fa fa-user"></i> {{$property->user->name}}</a>
+                                        <span><i class="fa fa-calendar-o"></i> {{$property->created_at->diffForHumans()}}</span>
+                                    </div>
+
                                 </div>
 
                             </div>
-
                         </div>
-                    </div>
-                    <!-- Listing Item / End -->
+                        <!-- Listing Item / End -->
                     @endforeach
-
-
-
 
 
                 </div>
@@ -369,7 +387,6 @@
 
         </div>
     </div>
-
 
 
     <!-- Fullwidth Section -->
@@ -395,7 +412,8 @@
                         </div>
 
                         <h3>Apartments</h3>
-                        <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel felis.</p>
+                        <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel
+                            felis.</p>
                     </div>
                 </div>
 
@@ -412,7 +430,8 @@
                         </div>
 
                         <h3>Houses</h3>
-                        <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel felis.</p>
+                        <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel
+                            felis.</p>
                     </div>
                 </div>
 
@@ -429,7 +448,8 @@
                         </div>
 
                         <h3>Garages</h3>
-                        <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel felis.</p>
+                        <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel
+                            felis.</p>
                     </div>
                 </div>
 
@@ -446,7 +466,8 @@
                         </div>
 
                         <h3>Commercial</h3>
-                        <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel felis.</p>
+                        <p>Aliquam dictum elit vitae mauris facilisis, at dictum urna dignissim donec vel lectus vel
+                            felis.</p>
                     </div>
                 </div>
 
@@ -461,13 +482,15 @@
         <div class="row">
 
             <div class="col-md-12">
-                <h3 class="headline centered margin-bottom-35 margin-top-10">Most Popular Places <span>Properties In Most Popular Places</span></h3>
+                <h3 class="headline centered margin-bottom-35 margin-top-10">Most Popular Places <span>Properties In Most Popular Places</span>
+                </h3>
             </div>
 
             <div class="col-md-4">
 
                 <!-- Image Box -->
-                <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-01.jpg">
+                <a href="listings-list-with-sidebar.html" class="img-box"
+                   data-background-image="images/popular-location-01.jpg">
 
                     <!-- Badge -->
                     <div class="listing-badges">
@@ -485,7 +508,8 @@
             <div class="col-md-8">
 
                 <!-- Image Box -->
-                <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-02.jpg">
+                <a href="listings-list-with-sidebar.html" class="img-box"
+                   data-background-image="images/popular-location-02.jpg">
                     <div class="img-box-content visible">
                         <h4>Los Angeles</h4>
                         <span>24 Properties</span>
@@ -497,7 +521,8 @@
             <div class="col-md-8">
 
                 <!-- Image Box -->
-                <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-03.jpg">
+                <a href="listings-list-with-sidebar.html" class="img-box"
+                   data-background-image="images/popular-location-03.jpg">
                     <div class="img-box-content visible">
                         <h4>San Francisco </h4>
                         <span>12 Properties</span>
@@ -509,7 +534,8 @@
             <div class="col-md-4">
 
                 <!-- Image Box -->
-                <a href="listings-list-with-sidebar.html" class="img-box" data-background-image="images/popular-location-04.jpg">
+                <a href="listings-list-with-sidebar.html" class="img-box"
+                   data-background-image="images/popular-location-04.jpg">
                     <div class="img-box-content visible">
                         <h4>Miami</h4>
                         <span>9 Properties</span>
@@ -545,7 +571,8 @@
                         <!-- Content -->
                         <div class="post-content">
                             <h3><a href="#">8 Tips to Help You Finding New Home</a></h3>
-                            <p>Nam nisl lacus, dignissim ac tristique ut, scelerisque eu massa. Vestibulum ligula nunc, rutrum in malesuada vitae. </p>
+                            <p>Nam nisl lacus, dignissim ac tristique ut, scelerisque eu massa. Vestibulum ligula nunc,
+                                rutrum in malesuada vitae. </p>
 
                             <a href="blog-post.html" class="read-more">Read More <i class="fa fa-angle-right"></i></a>
                         </div>
@@ -568,7 +595,8 @@
                         <!-- Content -->
                         <div class="post-content">
                             <h3><a href="#">Bedroom Colors You'll Never Regret</a></h3>
-                            <p>Nam nisl lacus, dignissim ac tristique ut, scelerisque eu massa. Vestibulum ligula nunc, rutrum in malesuada vitae. </p>
+                            <p>Nam nisl lacus, dignissim ac tristique ut, scelerisque eu massa. Vestibulum ligula nunc,
+                                rutrum in malesuada vitae. </p>
 
                             <a href="blog-post.html" class="read-more">Read More <i class="fa fa-angle-right"></i></a>
                         </div>
@@ -591,7 +619,8 @@
                         <!-- Content -->
                         <div class="post-content">
                             <h3><a href="#">What to Do a Year Before Buying Apartment</a></h3>
-                            <p>Nam nisl lacus, dignissim ac tristique ut, scelerisque eu massa. Vestibulum ligula nunc, rutrum in malesuada vitae. </p>
+                            <p>Nam nisl lacus, dignissim ac tristique ut, scelerisque eu massa. Vestibulum ligula nunc,
+                                rutrum in malesuada vitae. </p>
 
                             <a href="blog-post.html" class="read-more">Read More <i class="fa fa-angle-right"></i></a>
                         </div>
@@ -608,15 +637,15 @@
 
 
     <!-- Flip banner -->
-    <a href="listings-half-map-grid-standard.html" class="flip-banner parallax" data-background="images/flip-banner-bg.jpg" data-color="#274abb" data-color-opacity="0.9" data-img-width="2500" data-img-height="1600">
+    <a href="listings-half-map-grid-standard.html" class="flip-banner parallax"
+       data-background="images/flip-banner-bg.jpg" data-color="#274abb" data-color-opacity="0.9" data-img-width="2500"
+       data-img-height="1600">
         <div class="flip-banner-content">
             <h2 class="flip-visible">We help people and homes find each other</h2>
             <h2 class="flip-hidden">Browse Properties <i class="sl sl-icon-arrow-right"></i></h2>
         </div>
     </a>
     <!-- Flip banner / End -->
-
-
 
 
     <!-- Footer
@@ -648,9 +677,9 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.like-icon.bookmark-toggle').forEach(span => {
-            span.addEventListener('click', function() {
+            span.addEventListener('click', function () {
                 const propertyId = this.getAttribute('data-property-id');
                 const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -660,7 +689,7 @@
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': token
                     },
-                    body: JSON.stringify({ property_id: propertyId })
+                    body: JSON.stringify({property_id: propertyId})
                 })
                     .then(response => response.json())
                     .then(data => {

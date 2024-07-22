@@ -94,9 +94,13 @@
 
                                 <div class="listing-img-content">
                                     <span class="listing-price">${{$property->price}} <i>${{intval($property->price / $property->area)}} / sq ft</i></span>
-                                    <span class="like-icon bookmark-toggle {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'bookmarked' : '' }}" data-tip-content="Add to Bookmarks" data-property-id="{{ $property->id }}">
-                                            <i class="fa {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'fa-star' : 'fa-star-o' }}"></i>
-                                    </span>
+                                    @if (Auth::check())
+                                        <span class="like-icon bookmark-toggle {{ Auth::user()->favorites->contains('property_id', $property->id) ? 'bookmarked' : '' }}" data-tip-content="Add to Bookmarks" data-property-id="{{ $property->id }}">
+                                                    <i class="fa {{ Auth::user()->favorites->contains('property_id', $property->id) ? 'fa-star' : 'fa-star-o' }}"></i>
+                                                </span>
+                                    @else
+                                        <span class="like-icon with-tip" data-tip-content="Log in to Bookmark"></span>
+                                    @endif
                                     <span class="compare-button with-tip" data-tip-content="Add to Compare"></span>
                                 </div>
 

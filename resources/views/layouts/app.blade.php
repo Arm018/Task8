@@ -19,16 +19,11 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
-
 </head>
 <body>
 <div id="wrapper">
     <!-- Compare Properties Widget / End -->
     @include('profile.layouts.right_sidebar')
-
-
-
     <!-- Header Container
     ================================================== -->
     @include('layouts.header')

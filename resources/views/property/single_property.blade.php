@@ -337,9 +337,15 @@
                     <div class="widget margin-bottom-30">
                         <button class="widget-button with-tip" data-tip-content="Print"><i
                                 class="sl sl-icon-printer"></i></button>
-                        <button class="widget-button with-tip bookmark-toggle {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'bookmarked' : '' }}" data-tip-content="Add to Bookmarks" data-property-id="{{ $property->id }}">
-                            <i class="fa {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'fa-star' : 'fa-star-o' }}"></i>
-                        </button>
+                        @if(\Illuminate\Support\Facades\Auth::check())
+                            <button class="widget-button with-tip bookmark-toggle {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'bookmarked' : '' }}" data-tip-content="Add to Bookmarks" data-property-id="{{ $property->id }}">
+                                <i class="fa {{ \Illuminate\Support\Facades\Auth::user()->favorites->contains('property_id', $property->id) ? 'fa-star' : 'fa-star-o' }}"></i>
+                            </button>
+                        @else
+                            <button class="widget-button with-tip bookmark-toggle" data-tip-content="Log in to Bookmark" data-property-id="{{ $property->id }}">
+                                <i class="fa fa-star-o"></i>
+                            </button>
+                        @endif
                         <button class="widget-button with-tip compare-widget-button" data-tip-content="Add to Compare">
                             <i class="icon-compare"></i></button>
                         <div class="clearfix"></div>
