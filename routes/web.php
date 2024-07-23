@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContactUsController;
@@ -35,8 +36,20 @@ Route::get('single_property/{id}', [PropertyController::class, 'show'])->name('s
 Route::get('search', [SearchController::class, 'search'])->name('search');
 Route::get('order', [OrderController::class, 'order'])->name('order');
 
-Route::middleware('auth')->group(function () {
+Route::prefix('admin')->group(function () {
+    Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('login', [AdminAuthController::class, 'login']);
+});
 
+
+Route::prefix('admin')->middleware('admin')->group(function () {
+    Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+    Route::get('dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard');
+});
+
+
+
+Route::middleware('auth')->group(function () {
 
     Route::get('contacts', [ContactController::class, 'index'])->name('contact');
     Route::post('contacts', [ContactController::class, 'store'])->name('contact.store');
