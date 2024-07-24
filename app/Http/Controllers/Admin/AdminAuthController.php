@@ -3,26 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminAuthRequest;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AdminAuthController extends Controller
 {
-    public function showLoginForm(Request $request)
+    public function showLoginForm()
     {
         return view('admin.auth.login');
     }
 
-    public function login(Request $request)
+    public function login(AdminAuthRequest $request)
     {
 
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
-        $credentials = $request->only('email', 'password');
-        if (Auth::guard('admin')->attempt($credentials)) {
+        if (Auth::guard('admin')->attempt($request->only('email', 'password'))) {
             return redirect()->route('admin.dashboard');
         } else {
             return back()->withErrors(['email' => 'These Credentials do not match our records.']);
@@ -36,10 +32,5 @@ class AdminAuthController extends Controller
         return redirect()->route('admin.login');
     }
 
-    public function dashboard()
-    {
-        $admin = Admin::query()->first();
-        return view('admin.dashboard', compact('admin'));
-    }
 
 }
