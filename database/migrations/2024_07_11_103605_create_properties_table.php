@@ -17,7 +17,7 @@ return new class extends Migration
                 $table->string('title');
                 $table->integer('status');
                 $table->integer('type');
-                $table->decimal('price', 10, 2);
+                $table->integer('price');
                 $table->integer('area');
                 $table->integer('rooms');
                 $table->string('address');

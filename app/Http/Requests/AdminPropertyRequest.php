@@ -25,7 +25,7 @@ class AdminPropertyRequest extends FormRequest
             'title' => 'required|string|max:255',
             'status' => 'required|integer',
             'type' => 'required|integer',
-            'price' => 'required|numeric',
+            'price' => 'required|integer',
             'area' => 'required|numeric',
             'rooms' => 'required|integer',
             'address' => 'required|string|max:255',

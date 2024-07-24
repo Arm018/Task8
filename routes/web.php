@@ -1,13 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminAuthController;
-use App\Http\Controllers\Admin\AdminViewController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\ListingController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
@@ -45,12 +43,14 @@ Route::prefix('admin')->group(function () {
 
 Route::prefix('admin')->middleware('admin')->group(function () {
     Route::post('logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
-    Route::get('dashboard', [AdminViewController::class,'dashboard'])->name('admin.dashboard');
-    Route::get('users', [AdminViewController::class,'users'])->name('admin.users');
-    Route::get('properties', [AdminViewController::class,'properties'])->name('admin.properties');
-    Route::get('properties/{property}/edit', [AdminViewController::class, 'editProperty'])->name('admin.properties.edit');
-    Route::put('properties/{property}', [AdminViewController::class, 'updateProperty'])->name('admin.properties.update');
-    Route::delete('properties/{property}', [AdminViewController::class, 'destroyProperty'])->name('admin.properties.destroy');
+    Route::get('dashboard', [\App\Http\Controllers\Admin\AdminController::class,'index'])->name('admin.dashboard');
+    Route::get('users', [\App\Http\Controllers\Admin\UserController::class,'index'])->name('admin.users');
+    Route::get('properties', [\App\Http\Controllers\Admin\PropertyController::class,'index'])->name('admin.properties');
+    Route::get('properties/{property}/edit', [\App\Http\Controllers\Admin\PropertyController::class, 'edit'])->name('admin.properties.edit');
+    Route::put('properties/{property}', [\App\Http\Controllers\Admin\PropertyController::class, 'update'])->name('admin.properties.update');
+    Route::delete('properties/{property}', [\App\Http\Controllers\Admin\PropertyController::class, 'destroy'])->name('admin.properties.destroy');
+    Route::get('search/users',[\App\Http\Controllers\Admin\UserSearchController::class,'search'])->name('admin.users.search');
+    Route::get('search/properties',[\App\Http\Controllers\Admin\PropertySearchController::class,'search'])->name('admin.properties.search');
 });
 
 

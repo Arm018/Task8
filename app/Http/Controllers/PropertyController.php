@@ -68,4 +68,5 @@ class PropertyController extends Controller
     }
 
 
+
 }
