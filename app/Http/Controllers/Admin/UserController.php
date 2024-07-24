@@ -3,17 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Admin;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Services\Admin\UserService;
+
 
 class UserController extends Controller
 {
+    protected UserService $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function index()
     {
-        $admin = Admin::query()->first();
-        $users = User::query()->with('userInfo')->paginate(10);
-        return view('admin.user_list', compact('users', 'admin'));
+        $users = $this->userService->getUsers();
+        return view('admin.user_list', compact('users'));
     }
 
 }

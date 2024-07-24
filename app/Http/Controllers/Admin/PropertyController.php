@@ -6,33 +6,39 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminPropertyRequest;
 use App\Models\Admin;
 use App\Models\Property;
+use App\Services\Admin\PropertyService;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
+    protected PropertyService $propertyService;
+
+    public function __construct(PropertyService $propertyService)
+    {
+        $this->propertyService = $propertyService;
+    }
+
     public function index()
     {
-        $admin = Admin::query()->first();
-        $properties = Property::query()->with('details')->paginate(10);
-        return view('admin.properties.properties', compact('admin', 'properties'));
+        $properties = $this->propertyService->getProperties();
+        return view('admin.properties.properties', compact('properties'));
     }
 
     public function edit(Property $property)
     {
-        $admin = Admin::query()->first();
-        return view('admin.properties.edit_property', compact('admin', 'property'));
+        return view('admin.properties.edit_property', compact('property'));
     }
 
     public function update(AdminPropertyRequest $request, $id)
     {
         $property = Property::findOrFail($id);
-        $property->update($request->validated());
+        $this->propertyService->updateProperty($property, $request->validated());
         return redirect()->route('admin.properties')->with('success', 'Property updated successfully');
     }
 
     public function destroy(Property $property)
     {
-        $property->delete();
+        $this->propertyService->deleteProperty($property);
         return redirect()->route('admin.properties')->with('success', 'Property deleted successfully');
     }
 

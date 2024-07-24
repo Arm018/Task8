@@ -191,7 +191,8 @@
                 <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">{{$admin->name}}</a>
+
+                <a href="#" class="d-block">{{\App\Models\Admin::getAuthAdmin()->name}}</a>
                 <form action="{{route('admin.logout')}}" method="post">
                     @csrf
                     <button type="submit" class="btn btn-danger">Logout</button>
