@@ -84,5 +84,22 @@ class Property extends Model
         return $this->hasMany(FavoriteProperty::class, 'property_id', 'id');
     }
 
+    public function toSearchableArray()
+    {
+        return [
+            'title' => $this->title,
+            'status' => $this->status,
+            'type' => $this->type,
+            'price' => $this->price,
+            'area' => $this->area,
+            'rooms' => $this->rooms,
+            'address' => $this->address,
+            'city' => $this->city,
+            'state' => $this->state,
+            'zip_code' => $this->zip_code,
+        ];
+    }
+
+
 
 }

@@ -20,6 +20,7 @@ class PropertySearchController extends Controller
     public function search(Request $request)
     {
         $properties = $this->propertySearchService->search($request);
+
         return view('admin.properties.properties', compact('properties'));
     }
 

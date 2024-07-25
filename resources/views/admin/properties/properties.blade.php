@@ -52,11 +52,11 @@
                                                 <select name="search_status" class="form-control form-control-sm">
                                                     <option
                                                         value="" {{ request()->get('search_status') === null ? 'selected' : '' }}>
-                                                        Select Status
+                                                        All Status
                                                     </option>
                                                     @foreach(\App\Models\Property::STATUSES as $key => $value)
                                                         <option
-                                                            value="{{ $key }}" {{ request()->get('search_status') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                                            value="{{ $key }}" {{request()->get('search_status') === $key ? 'selected' : '' }}>{{ $value }}</option>
                                                     @endforeach
                                                 </select>
                                             </th>
@@ -64,11 +64,11 @@
                                                 <select name="search_type" class="form-control form-control-sm">
                                                     <option
                                                         value="" {{ request()->get('search_type') === null ? 'selected' : '' }}>
-                                                        Select Type
+                                                        All Types
                                                     </option>
                                                     @foreach(\App\Models\Property::TYPES as $key => $value)
                                                         <option
-                                                            value="{{ $key }}" {{ request()->get('search_type') == $key ? 'selected' : '' }}>{{ $value }}</option>
+                                                            value="{{ $key }}" {{request()->get('search_type') === $key ? 'selected' : '' }}>{{ $value }}</option>
                                                     @endforeach
                                                 </select>
                                             </th>

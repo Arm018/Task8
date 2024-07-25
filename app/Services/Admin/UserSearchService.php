@@ -11,25 +11,23 @@ class UserSearchService
     public function search(Request $request)
     {
         $query = User::query();
-
-        if ($searchId = $request->get('search_id')) {
-            $query->where('id', $searchId);
-        }
-        if ($searchName = $request->get('search_name')) {
-            $query->where('name', 'like', "%{$searchName}%");
-        }
-
-        if ($searchEmail = $request->get('search_email')) {
-            $query->where('email', 'like', "%{$searchEmail}%");
-        }
-        if ($searchPhone = $request->get('search_phone')) {
-            $query->whereHas('userInfo', function ($q) use ($searchPhone) {
-                $q->where('phone', 'like', "%{$searchPhone}%");
+        $query
+            ->when($request->get('search_id'), function ($q) use ($request) {
+                $q->where('id', $request->get('search_id'));
+            })
+            ->when($request->get('search_name'), function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->get('search_name') . '%');
+            })
+            ->when($request->get('search_email'), function ($q) use ($request) {
+                $q->where('email', 'like', '%' . $request->get('search_email') . '%');
+            })
+            ->when($request->get('search_phone'), function ($q) use ($request) {
+                $q->where('phone', 'like', '%' . $request->get('search_phone') . '%');
+            })
+            ->when($request->get('search_date'), function ($q) use ($request) {
+                $q->where('created_at', 'like', '%' . $request->get('search_date') . '%');
             });
-        }
-        if ($searchDate = $request->get('search_date')) {
-            $query->whereDate('created_at', 'like', "%{$searchDate}%");
-        }
+
 
         return $query->paginate(10);
     }
