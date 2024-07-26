@@ -17,10 +17,12 @@ class Property extends Model
     const TYPE_COMMERCIAL = 2;
     const TYPE_GARAGE = 3;
     const TYPE_LOT = 4;
+
     const STATUSES = [
         self::STATUS_SALE => 'For Sale',
         self::STATUS_RENT => 'For Rent',
     ];
+
     const TYPES = [
         self::TYPE_APARTMENT => 'Apartment',
         self::TYPE_HOUSE => 'House',
@@ -82,22 +84,6 @@ class Property extends Model
     public function favorites()
     {
         return $this->hasMany(FavoriteProperty::class, 'property_id', 'id');
-    }
-
-    public function toSearchableArray()
-    {
-        return [
-            'title' => $this->title,
-            'status' => $this->status,
-            'type' => $this->type,
-            'price' => $this->price,
-            'area' => $this->area,
-            'rooms' => $this->rooms,
-            'address' => $this->address,
-            'city' => $this->city,
-            'state' => $this->state,
-            'zip_code' => $this->zip_code,
-        ];
     }
 
 

@@ -97,20 +97,23 @@
 
                     <!-- Listing Item -->
                     @foreach($filteredProperties as $property)
+                        @php
+                            $propertySource = $property['_source'];
+                        @endphp
                         <div class="listing-item">
 
-                            <a href="{{route('single.property',$property->id)}}" class="listing-img-container">
+                            <a href="{{route('single.property',$property['_id'])}}" class="listing-img-container">
 
                                 <div class="listing-badges">
                                     <span class="featured">Featured</span>
-                                    <span>{{$property->getStatusName()}}</span>
+                                    <span>{{ $propertySource['status'] == 1 ? 'For Rent' : 'For Sale' }}</span>
                                 </div>
 
                                 <div class="listing-img-content">
-                                    <span class="listing-price">${{$property->price}} <i>${{intval($property->price / $property->area)}} / sq ft</i></span>
+                                    <span class="listing-price">${{$propertySource['price']}} <i>${{intval($propertySource['price'] / $propertySource['area'])}} / sq ft</i></span>
                                     @if (Auth::check())
-                                        <span class="like-icon bookmark-toggle {{ Auth::user()->favorites->contains('property_id', $property->id) ? 'bookmarked' : '' }}" data-tip-content="Add to Bookmarks" data-property-id="{{ $property->id }}">
-                                                    <i class="fa {{ Auth::user()->favorites->contains('property_id', $property->id) ? 'fa-star' : 'fa-star-o' }}"></i>
+                                        <span class="like-icon bookmark-toggle {{ Auth::user()->favorites->contains('property_id', $property['_id']) ? 'bookmarked' : '' }}" data-tip-content="Add to Bookmarks" data-property-id="{{ $property['_id'] }}">
+                                                    <i class="fa {{ Auth::user()->favorites->contains('property_id', $property['_id']) ? 'fa-star' : 'fa-star-o' }}"></i>
                                                 </span>
                                     @else
                                         <span class="like-icon with-tip" data-tip-content="Log in to Bookmark"></span>
@@ -119,9 +122,8 @@
                                 </div>
 
                                 <div class="listing-carousel">
-                                    @foreach($property->images as $image)
-                                        <div><img src="{{\Illuminate\Support\Facades\Storage::url($image->image)}}"
-                                                  alt=""></div>
+                                    @foreach($propertySource['images'] as $image)
+                                        <div><img src="{{ \Illuminate\Support\Facades\Storage::url($image) }}" alt=""></div>
                                     @endforeach
                                 </div>
                             </a>
@@ -129,31 +131,27 @@
                             <div class="listing-content">
 
                                 <div class="listing-title">
-                                    <h4><a href="{{route('single.property',$property->id)}}">{{$property->title}}</a>
+                                    <h4><a href="{{route('single.property',$property['_id'])}}">{{$propertySource['title']}}</a>
                                     </h4>
                                     <a href="https://maps.google.com/maps?q=221B+Baker+Street,+London,+United+Kingdom&hl=en&t=v&hnear=221B+Baker+St,+London+NW1+6XE,+United+Kingdom"
                                        class="listing-address popup-gmaps">
                                         <i class="fa fa-map-marker"></i>
-                                        {{$property->zip_code}}
-                                        {{$property->address}}
-                                        {{$property->city}},
-                                        {{$property->state}}
+                                        {{$propertySource['address']}}
                                     </a>
 
-                                    <a href="{{route('single.property',$property->id)}}" class="details button border">Details</a>
+                                    <a href="{{route('single.property',$property['_id'])}}" class="details button border">Details</a>
                                 </div>
 
                                 <ul class="listing-details">
-                                    <li>{{$property->area}} sq ft</li>
-                                    <li>{{$property->details->bedrooms}} Bedroom</li>
-                                    <li>{{$property->rooms}} Rooms</li>
-                                    <li>{{$property->details->bathrooms}} Bathroom</li>
+                                    <li>{{$propertySource['area']}} sq ft</li>
+                                    <li>{{$propertySource['bedrooms']}} Bedroom</li>
+                                    <li>{{$propertySource['rooms']}} Rooms</li>
+                                    <li>{{$propertySource['bathrooms']}} Bathroom</li>
                                 </ul>
 
                                 <div class="listing-footer">
-                                    <a href="#"><i class="fa fa-user"></i> {{$property->user->name}}</a>
-                                    <span><i
-                                            class="fa fa-calendar-o"></i> {{$property->created_at->diffForHumans()}}</span>
+                                    <a href="#"><i class="fa fa-user"></i> {{$propertySource['user']['name']}}</a>
+                                    <span><i class="fa fa-calendar-o"></i> {{$propertySource['created_at']}}</span>
                                 </div>
 
                             </div>
@@ -169,7 +167,7 @@
 
                 <!-- Pagination -->
                 <div class="col-6">
-                    <span>{{$filteredProperties->links('vendor.pagination.bootstrap-4')}}</span>
+{{--                    <span>{{$filteredProperties->links('vendor.pagination.bootstrap-4')}}</span>--}}
                 </div>
                 <!-- Pagination / End -->
 

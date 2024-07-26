@@ -2,74 +2,127 @@
 
 namespace App\Services;
 
-use App\Models\Property;
-use Illuminate\Http\Request;
+use Elastic\Elasticsearch\Client;
+use Exception;
 
 class SearchService
 {
-    public function searchProperties(Request $request)
+    protected $client;
+
+    public function __construct(Client $client)
     {
-        $min_price = $request->input('min_price');
-        $max_price = $request->input('max_price');
-        $type = $request->input('type');
-        $address = $request->input('address');
-        $min_area = $request->input('min_area');
-        $max_area = $request->input('max_area');
-        $beds = $request->input('beds');
-        $baths = $request->input('baths');
-        $status = $request->input('status');
-        $rooms = $request->input('rooms');
-        $age = $request->input('age');
+        $this->client = $client;
+    }
 
-        $checkboxes = ['air_conditioning', 'swimming_pool', 'central_heating', 'laundry_room', 'gym', 'alarm', 'window_covering'];
+    public function searchProperties($request)
+    {
+        $params = [
+            'index' => 'properties',
+            'body'  => [
+                'query' => [
+                    'bool' => [
+                        'must' => $this->buildMustClauses($request),
+                        'filter' => $this->buildFilterClauses($request),
+                    ],
+                ],
+            ],
+        ];
 
-        $query = Property::query()
-            ->join('property_details', 'property_details.property_id', '=', 'properties.id')
-            ->when($min_price, function ($query, $min_price) {
-                return $query->where('price', '>=', $min_price);
-            })
-            ->when($max_price, function ($query, $max_price) {
-                return $query->where('price', '<=', $max_price);
-            })
-            ->when($type, function ($query, $type) {
-                return $query->where('type', $type);
-            })
-            ->when($rooms, function ($query, $rooms) {
-                return $query->where('rooms', $rooms);
-            })
-            ->when($address, function ($query, $address) {
-                return $query->where('address', 'LIKE', '%' . $address . '%');
-            })
-            ->when($min_area, function ($query, $min_area) {
-                return $query->where('area', '>=', $min_area);
-            })
-            ->when($max_area, function ($query, $max_area) {
-                return $query->where('area', '<=', $max_area);
-            })
-            ->when($status, function ($query, $status) {
-                return $query->where('status', $status);
-            })
-            ->when($age, function ($query, $age) {
-                return $query->where('property_details.building_age', '=', $age);
-            })
-            ->when($beds, function ($query, $beds) {
-                return $query->where('property_details.bedrooms', '=', $beds);
-            })
-            ->when($baths, function ($query, $baths) {
-                return $query->where('property_details.bathrooms', '=', $baths);
-            })
-            ->when(count($request->only($checkboxes)), function ($query) use ($request, $checkboxes) {
-                $query->where(function ($query) use ($request, $checkboxes) {
-                    foreach ($checkboxes as $checkbox) {
-                        if ($request->has($checkbox)) {
-                            $query->orWhere("property_details.{$checkbox}", '=', 1);
-                        }
-                    }
-                });
-            })
-            ->orderBy('properties.created_at')
-            ->paginate(6);
+        try {
+            $response = $this->client->search($params);
+            return $response['hits']['hits'];
+        } catch (Exception $e) {
+            // Log the exception and handle the error accordingly
+            \Log::error('Elasticsearch query error: ' . $e->getMessage());
+            return [];
+        }
+    }
 
-        return $query;
+    protected function buildMustClauses($request)
+    {
+        $clauses = [];
+
+        if ($request->filled('address')) {
+            $clauses[] = [
+                'match' => [
+                    'address' => $request->input('address'),
+                ],
+            ];
+        }
+
+        if ($request->filled('type')) {
+            $clauses[] = [
+                'term' => [
+                    'type.keyword' => $request->input('type'),
+                ],
+            ];
+        }
+
+        return $clauses;
+    }
+
+    protected function buildFilterClauses($request)
+    {
+        $filters = [];
+
+        if ($request->filled('min_price') || $request->filled('max_price')) {
+            $filters[] = [
+                'range' => [
+                    'price' => [
+                        'gte' => $request->input('min_price', 0),
+                        'lte' => $request->input('max_price', PHP_INT_MAX),
+                    ],
+                ],
+            ];
+        }
+
+        if ($request->filled('min_area') || $request->filled('max_area')) {
+            $filters[] = [
+                'range' => [
+                    'area' => [
+                        'gte' => $request->input('min_area', 0),
+                        'lte' => $request->input('max_area', PHP_INT_MAX),
+                    ],
+                ],
+            ];
+        }
+
+        if ($request->filled('beds')) {
+            $filters[] = [
+                'term' => [
+                    'beds' => $request->input('beds'),
+                ],
+            ];
+        }
+
+        if ($request->filled('baths')) {
+            $filters[] = [
+                'term' => [
+                    'baths' => $request->input('baths'),
+                ],
+            ];
+        }
+
+        $checkboxFilters = [
+            'air_conditioning',
+            'swimming_pool',
+            'central_heating',
+            'laundry_room',
+            'gym',
+            'alarm',
+            'window_covering',
+        ];
+
+        foreach ($checkboxFilters as $filter) {
+            if ($request->has($filter)) {
+                $filters[] = [
+                    'term' => [
+                        $filter => true,
+                    ],
+                ];
+            }
+        }
+
+        return $filters;
     }
 }

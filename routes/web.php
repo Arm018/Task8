@@ -55,6 +55,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
 
 
+
 Route::middleware('auth')->group(function () {
 
     Route::get('contacts', [ContactController::class, 'index'])->name('contact');

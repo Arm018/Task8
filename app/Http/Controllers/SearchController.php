@@ -30,4 +30,5 @@ class SearchController extends Controller
                 return view('listing.listing_list_sidebar', compact('filteredProperties'));
         }
     }
+
 }
