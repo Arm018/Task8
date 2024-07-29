@@ -138,7 +138,8 @@
 
                                         <!-- Property Type -->
                                         <div class="col-md-4">
-                                            <select name="type" data-placeholder="Any Type" class="chosen-select-no-single">
+                                            <select name="type" data-placeholder="Any Type"
+                                                    class="chosen-select-no-single">
                                                 <option value="">Any Type</option>
                                                 @foreach ($propertyTypes as $key => $type)
                                                     <option value="{{ $key }}">{{ $type }}</option>
@@ -327,11 +328,15 @@
                                             <span class="listing-price">${{$property->price}} <i>monthly</i></span>
                                         @endif
                                         @if (Auth::check())
-                                                <span class="like-icon bookmark-toggle {{ Auth::user()->favorites->contains('property_id', $property->id) ? 'bookmarked' : '' }}" data-tip-content="Add to Bookmarks" data-property-id="{{ $property->id }}">
+                                            <span
+                                                class="like-icon bookmark-toggle {{ Auth::user()->favorites->contains('property_id', $property->id) ? 'bookmarked' : '' }}"
+                                                data-tip-content="Add to Bookmarks"
+                                                data-property-id="{{ $property->id }}">
                                                     <i class="fa {{ Auth::user()->favorites->contains('property_id', $property->id) ? 'fa-star' : 'fa-star-o' }}"></i>
                                                 </span>
                                         @else
-                                                <span class="like-icon with-tip" data-tip-content="Log in to Bookmark"></span>
+                                            <span class="like-icon with-tip"
+                                                  data-tip-content="Log in to Bookmark"></span>
                                         @endif
                                         <span class="compare-button with-tip" data-tip-content="Add to Compare"></span>
                                     </div>

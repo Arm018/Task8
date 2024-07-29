@@ -1,0 +1,30 @@
+services:
+    web:
+        image: ubuntu:latest
+        container_name: web
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "80:80"
+        volumes:
+            - .:/var/www/html
+        environment:
+            - COMPOSER_ALLOW_SUPERUSER=1
+        depends_on:
+            - db
+        command: ["php", "-S", "0.0.0.0:80", "-t", "/var/www/html/public"]
+
+    db:
+        image: mysql:5.7
+        container_name: db
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: real_estate_db
+        ports:
+            - "3306:3306"
+        volumes:
+            - db_data:/var/lib/mysql
+
+volumes:
+    db_data:

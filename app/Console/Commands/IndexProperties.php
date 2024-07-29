@@ -28,16 +28,16 @@ class IndexProperties extends Command
     {
         $this->info('Starting re-indexing process...');
 
-        $properties = Property::with('details', 'user', 'images','features')->get();
+        $properties = Property::with('details', 'user', 'images', 'features')->get();
 
         foreach ($properties as $property) {
 //            dd($property->features);
             $params = [
                 'index' => 'properties',
-                'id'    => $property->id,
-                'body'  => [
+                'id' => $property->id,
+                'body' => [
                     'user' => [
-                        'id'   => $property->user->id,
+                        'id' => $property->user->id,
                         'name' => $property->user->name,
                     ],
                     'images' => $property->images->pluck('image')->toArray(),
