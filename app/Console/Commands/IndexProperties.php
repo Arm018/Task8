@@ -28,9 +28,10 @@ class IndexProperties extends Command
     {
         $this->info('Starting re-indexing process...');
 
-        $properties = Property::with('details', 'user', 'images')->get();
+        $properties = Property::with('details', 'user', 'images','features')->get();
 
         foreach ($properties as $property) {
+//            dd($property->features);
             $params = [
                 'index' => 'properties',
                 'id'    => $property->id,
@@ -51,13 +52,7 @@ class IndexProperties extends Command
                     'bedrooms' => $property->details->bedrooms,
                     'bathrooms' => $property->details->bathrooms,
                     'rooms' => $property->rooms,
-                    'air_conditioning' => $property->details->air_conditioning,
-                    'swimming_pool' => $property->details->swimming_pool,
-                    'central_heating' => $property->details->central_heating,
-                    'laundry_room' => $property->details->laundry_room,
-                    'gym' => $property->details->gym,
-                    'alarm' => $property->details->alarm,
-                    'window_covering' => $property->details->window_covering,
+                    'features' => $property->features->pluck('name')->toArray(),
                 ],
             ];
 

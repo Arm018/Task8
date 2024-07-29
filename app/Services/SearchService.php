@@ -16,13 +16,14 @@ class SearchService
 
     public function searchProperties($request)
     {
+
         $params = [
             'index' => 'properties',
-            'body'  => [
+            'body' => [
                 'query' => [
                     'bool' => [
-                        'must' => $this->buildMustClauses($request),
-                        'filter' => $this->buildFilterClauses($request),
+                        'must' => $this->clauses($request),
+                        'filter' => $this->Filter($request),
                     ],
                 ],
             ],
@@ -32,13 +33,13 @@ class SearchService
             $response = $this->client->search($params);
             return $response['hits']['hits'];
         } catch (Exception $e) {
-            // Log the exception and handle the error accordingly
+
             \Log::error('Elasticsearch query error: ' . $e->getMessage());
             return [];
         }
     }
 
-    protected function buildMustClauses($request)
+    protected function clauses($request)
     {
         $clauses = [];
 
@@ -53,7 +54,7 @@ class SearchService
         if ($request->filled('type')) {
             $clauses[] = [
                 'term' => [
-                    'type.keyword' => $request->input('type'),
+                    'type' => (int)$request->input('type'),
                 ],
             ];
         }
@@ -61,7 +62,7 @@ class SearchService
         return $clauses;
     }
 
-    protected function buildFilterClauses($request)
+    protected function Filter($request)
     {
         $filters = [];
 
@@ -90,7 +91,7 @@ class SearchService
         if ($request->filled('beds')) {
             $filters[] = [
                 'term' => [
-                    'beds' => $request->input('beds'),
+                    'bedrooms' => $request->input('beds'),
                 ],
             ];
         }
@@ -98,7 +99,7 @@ class SearchService
         if ($request->filled('baths')) {
             $filters[] = [
                 'term' => [
-                    'baths' => $request->input('baths'),
+                    'bathrooms' => $request->input('baths'),
                 ],
             ];
         }
@@ -117,7 +118,7 @@ class SearchService
             if ($request->has($filter)) {
                 $filters[] = [
                     'term' => [
-                        $filter => true,
+                        'features' => $filter,
                     ],
                 ];
             }

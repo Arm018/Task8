@@ -100,6 +100,7 @@
                         @php
                             $propertySource = $property['_source'];
                         @endphp
+
                         <div class="listing-item">
 
                             <a href="{{route('single.property',$property['_id'])}}" class="listing-img-container">

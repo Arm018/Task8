@@ -138,8 +138,7 @@
 
                                         <!-- Property Type -->
                                         <div class="col-md-4">
-                                            <select name="type" data-placeholder="Any Type"
-                                                    class="chosen-select-no-single">
+                                            <select name="type" data-placeholder="Any Type" class="chosen-select-no-single">
                                                 <option value="">Any Type</option>
                                                 @foreach ($propertyTypes as $key => $type)
                                                     <option value="{{ $key }}">{{ $type }}</option>
