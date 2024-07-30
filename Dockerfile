@@ -1,52 +1,39 @@
-# Use the latest Ubuntu image
-FROM ubuntu:latest
-
-# Update package list and install prerequisites
-RUN apt-get update && \
-    apt-get install -y \
-    software-properties-common \
-    curl \
-    mysql-server
-
-# Add Ondřej Surý's PHP repository
-RUN add-apt-repository ppa:ondrej/php && \
-    apt-get update
-
-# Install PHP 8.2 and other packages
-RUN apt-get install -y \
-    php8.2-cli \
-    php8.2-common \
-    php8.2-mysql \
-    php8.2-zip \
-    php8.2-gd \
-    php8.2-mbstring \
-    php8.2-curl \
-    php8.2-xml \
-    php8.2-bcmath
-
-# Download Composer installer
-RUN curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
-
-# Install Composer
-RUN php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
-
-ENV COMPOSER_ALLOW_SUPERUSER=1
-
-# Copy application files into the container
-COPY . /var/www/html
-
-# Set working directory
+FROM php:8.1.0-apache
 WORKDIR /var/www/html
 
-# Install application dependencies
-RUN composer install
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
 
-# Clean up Composer installer
-RUN rm /tmp/composer-setup.php
+# Install system dependencies
+RUN apt-get update -y && apt-get install -y \
+    libicu-dev \
+    libmariadb-dev \
+    unzip zip \
+    zlib1g-dev \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    vim
 
-# Expose ports
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Install PHP extensions
+RUN docker-php-ext-install gettext intl pdo_mysql gd
+
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd
+
+# Copy application files to container
+COPY . /var/www/html
+
+# Copy Docker-specific environment file
+COPY .env.docker /var/www/html/.env
+
+# Set proper permissions
+RUN chown -R www-data:www-data /var/www/html
+
+# Expose port 80
 EXPOSE 80
-EXPOSE 3306
-
-# Default command
-CMD ["bash"]
